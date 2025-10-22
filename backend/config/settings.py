@@ -47,3 +47,13 @@ config = {
     'testing': TestingConfig,
     'default': DevelopmentConfig
 }
+
+# Google Cloud OAuth 2.0 Configuration - 2025-10-22
+GOOGLE_OAUTH_CLIENT_ID = "209067283417-p7jrdl8hne7ck85iqtt50u02ak2p7gk8.apps.googleusercontent.com"
+GOOGLE_CLOUD_API_KEY = "AIzaSyASWXk4RX29VhoL2ccwjz0-GtX-jMvCiYo"
+GOOGLE_OAUTH_SCOPES = [
+    "https://www.googleapis.com/auth/cloud-platform",
+    "https://www.googleapis.com/auth/cloud-translation", 
+    "https://www.googleapis.com/auth/cloud-language"
+]
+GOOGLE_OAUTH_REDIRECT_URI = "http://localhost:8080"

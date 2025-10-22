@@ -1,2 +1,89 @@
-# Ignorar la carpeta del entorno virtual
+# Archivos de configuración sensibles
+.env
+.env.local
+.env.production
+.env.development
+
+# API Keys y credenciales
+*_credentials.json
+*_token.json
+google_credentials.json
+aria_oauth_token.json
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Entornos virtuales
 .venv/
+venv/
+ENV/
+env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# Bases de datos locales
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+backend/data/*.db
+
+# Logs
+*.log
+logs/
+data/logs/
+
+# Archivos temporales
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend build
+frontend/build/
+frontend/dist/
+frontend/.env
+
+# Modelos de ML entrenados
+*.h5
+*.pkl
+backend/modelo_neuronal/*.h5
+backend/modelo_neuronal/*.pkl
+
+# Reportes y archivos de configuración temporales
+google_cloud_config_summary_*.json
+google_cloud_verification_report_*.json
+RESUMEN_FINAL_GOOGLE_CLOUD_*.json
+
+# Archivos de backup
+*.bak
+*.backup

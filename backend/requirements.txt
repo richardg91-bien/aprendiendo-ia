@@ -27,7 +27,20 @@ pytest-flask==1.3.0
 # Dictionary Learning System Dependencies
 # threading, pathlib y sqlite3 son módulos integrados de Python.
 
+# Advanced Learning System Dependencies
+feedparser==6.0.10
+beautifulsoup4==4.12.2
+lxml==4.9.3
+
 # Optional: For advanced AI features (future)
 # numpy==1.24.3
 # scikit-learn==1.3.0
 # tensorflow==2.13.0
+
+
+# Google Cloud API Keys Client - 2025-10-22 19:40:04
+google-cloud-api-keys
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+grpcio

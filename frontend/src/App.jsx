@@ -8,11 +8,16 @@ import {
   Toolbar,
   IconButton,
   Fade,
+  ToggleButton,
+  ToggleButtonGroup,
+  Paper
 } from '@mui/material';
 import {
   Psychology,
   Brightness4,
   Brightness7,
+  RocketLaunch,
+  Computer
 } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 
@@ -22,10 +27,13 @@ import WebSearchPanel from './components/WebSearchPanel.jsx';
 import NeuralTrainingPanel from './components/NeuralTrainingPanel.jsx';
 import LearningPanel from './components/LearningPanel.jsx';
 import StatusIndicator from './components/StatusIndicator.jsx';
+import AutoLearningPanel from './components/AutoLearningPanel.jsx';
+import FuturisticAriaInterface from './components/FuturisticAriaInterface.jsx';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [serverStatus, setServerStatus] = useState('connecting');
+  const [interfaceMode, setInterfaceMode] = useState('futuristic'); // 'classic' o 'futuristic'
 
   // Verificar estado del servidor
   useEffect(() => {
@@ -47,6 +55,52 @@ function App() {
 
     return () => clearInterval(interval);
   }, []);
+
+  const handleInterfaceChange = (event, newMode) => {
+    if (newMode !== null) {
+      setInterfaceMode(newMode);
+    }
+  };
+
+  // Si está en modo futurista, mostrar la interfaz completa
+  if (interfaceMode === 'futuristic') {
+    return (
+      <Box sx={{ position: 'relative' }}>
+        {/* Selector de interfaz flotante */}
+        <Paper
+          sx={{
+            position: 'fixed',
+            top: 20,
+            right: 20,
+            zIndex: 1000,
+            p: 1,
+            backgroundColor: 'rgba(26, 26, 46, 0.9)',
+            border: '2px solid #0080FF',
+            boxShadow: '0 0 20px #0080FF30',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          <ToggleButtonGroup
+            value={interfaceMode}
+            exclusive
+            onChange={handleInterfaceChange}
+            size="small"
+          >
+            <ToggleButton value="futuristic" sx={{ color: 'white' }}>
+              <RocketLaunch sx={{ mr: 1 }} />
+              Futurista
+            </ToggleButton>
+            <ToggleButton value="classic" sx={{ color: 'white' }}>
+              <Computer sx={{ mr: 1 }} />
+              Clásica
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Paper>
+        
+        <FuturisticAriaInterface />
+      </Box>
+    );
+  }
 
   const toggleTheme = () => {
     setDarkMode(!darkMode);
@@ -154,6 +208,15 @@ function App() {
                 <Fade in={true} timeout={1400}>
                   <Box>
                     <NeuralTrainingPanel />
+                  </Box>
+                </Fade>
+              </Grid>
+
+              {/* Aprendizaje Autónomo */}
+              <Grid item xs={12}>
+                <Fade in={true} timeout={1500}>
+                  <Box>
+                    <AutoLearningPanel />
                   </Box>
                 </Fade>
               </Grid>

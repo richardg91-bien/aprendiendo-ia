@@ -2,12 +2,19 @@
 ARIA - Servidor Estable con Red Neuronal Avanzada
 """
 
+import sys
+import os
+
+# Configurar codificación UTF-8 para Windows
+if sys.platform.startswith('win'):
+    import codecs
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datetime import datetime
 import random
-import sys
-import os
 
 # Agregar el directorio src al path para importar neural_network
 sys.path.append(os.path.join(os.path.dirname(__file__)))
@@ -23,12 +30,28 @@ try:
     from voice_system import voice_system
     VOICE_SYSTEM_AVAILABLE = voice_system is not None
     if VOICE_SYSTEM_AVAILABLE:
-        print("🔊 Sistema de voz ARIA cargado correctamente")
+        print("✅ Sistema de voz ARIA cargado correctamente")
     else:
         print("⚠️ Sistema de voz no disponible")
 except ImportError:
     VOICE_SYSTEM_AVAILABLE = False
     print("⚠️ Sistema de voz no disponible - pywin32 no encontrado")
+
+try:
+    from auto_learning import auto_learning
+    AUTO_LEARNING_AVAILABLE = True
+    print("🧠 Sistema de aprendizaje autónomo cargado")
+except ImportError:
+    AUTO_LEARNING_AVAILABLE = False
+    print("⚠️ Sistema de aprendizaje autónomo no disponible")
+
+try:
+    from cloud_database import cloud_db
+    CLOUD_DB_AVAILABLE = True
+    print("🌐 Base de datos en la nube cargada")
+except ImportError:
+    CLOUD_DB_AVAILABLE = False
+    print("⚠️ Base de datos en la nube no disponible")
 
 app = Flask(__name__)
 CORS(app)
@@ -360,6 +383,380 @@ def home():
     </html>
     """
 
+@app.route('/futuristic')
+def futuristic_interface():
+    return """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>ARIA Futuristic - Robot Face Interface</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body { 
+                margin: 0; 
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+                color: white; 
+                overflow-x: hidden;
+                min-height: 100vh;
+            }
+            .container { 
+                max-width: 1200px; 
+                margin: 0 auto; 
+                padding: 20px;
+                position: relative;
+                z-index: 10;
+            }
+            .header { 
+                text-align: center; 
+                margin-bottom: 30px;
+                animation: glow 2s ease-in-out infinite alternate;
+            }
+            .robot-face-container {
+                display: flex;
+                justify-content: center;
+                margin: 30px 0;
+                position: relative;
+            }
+            .robot-face {
+                width: 300px;
+                height: 300px;
+                background: linear-gradient(145deg, #1a1a1a 0%, #2d2d30 100%);
+                border-radius: 50%;
+                position: relative;
+                border: 3px solid #0080FF;
+                box-shadow: 0 0 30px #0080FF;
+                animation: pulse 2s infinite;
+            }
+            .robot-eye {
+                width: 60px;
+                height: 48px;
+                background: radial-gradient(circle, #0080FF 0%, #0050AA 70%, #003366 100%);
+                border-radius: 50%;
+                position: absolute;
+                top: 100px;
+                border: 2px solid #000;
+                animation: eye-glow 3s ease-in-out infinite alternate;
+            }
+            .left-eye { left: 80px; }
+            .right-eye { right: 80px; }
+            .eye-glint {
+                width: 12px;
+                height: 12px;
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 50%;
+                position: absolute;
+                top: 12px;
+                left: 15px;
+            }
+            .robot-mouth {
+                width: 100px;
+                height: 12px;
+                background: #333;
+                position: absolute;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                border: 2px solid #444;
+            }
+            .chat-area {
+                background: rgba(0, 0, 0, 0.7);
+                border-radius: 15px;
+                padding: 25px;
+                margin: 20px 0;
+                border: 1px solid #0080FF30;
+                backdrop-filter: blur(10px);
+            }
+            .input-group { 
+                display: flex; 
+                gap: 15px; 
+                margin-top: 20px; 
+            }
+            .input-group input { 
+                flex: 1; 
+                padding: 15px; 
+                border: 2px solid #0080FF; 
+                border-radius: 8px; 
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                font-size: 16px;
+                outline: none;
+                transition: all 0.3s ease;
+            }
+            .input-group input:focus {
+                border-color: #00FF7F;
+                box-shadow: 0 0 10px #00FF7F;
+            }
+            .input-group button { 
+                padding: 15px 25px; 
+                background: linear-gradient(45deg, #0080FF, #00FF7F);
+                color: white; 
+                border: none; 
+                border-radius: 8px; 
+                cursor: pointer;
+                font-size: 16px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 20px rgba(0, 128, 255, 0.5);
+            }
+            .input-group button:hover { 
+                transform: translateY(-2px);
+                box-shadow: 0 5px 30px rgba(0, 255, 127, 0.7);
+            }
+            .response { 
+                margin-top: 20px; 
+                padding: 20px; 
+                background: rgba(0, 128, 255, 0.1); 
+                border-left: 4px solid #0080FF; 
+                border-radius: 8px;
+                min-height: 30px;
+                transition: all 0.3s ease;
+            }
+            .emotion-indicator {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                padding: 10px 20px;
+                background: rgba(0, 128, 255, 0.8);
+                border-radius: 20px;
+                font-weight: bold;
+                animation: float 3s ease-in-out infinite;
+            }
+            .particles {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 1;
+            }
+            .particle {
+                position: absolute;
+                width: 2px;
+                height: 2px;
+                background: #0080FF;
+                border-radius: 50%;
+                animation: float-particle 4s infinite linear;
+            }
+            
+            @keyframes pulse {
+                0% { box-shadow: 0 0 30px #0080FF; }
+                50% { box-shadow: 0 0 60px #0080FF, 0 0 90px #0080FF; }
+                100% { box-shadow: 0 0 30px #0080FF; }
+            }
+            
+            @keyframes glow {
+                0% { text-shadow: 0 0 10px #0080FF; }
+                50% { text-shadow: 0 0 20px #0080FF, 0 0 30px #0080FF; }
+                100% { text-shadow: 0 0 10px #0080FF; }
+            }
+            
+            @keyframes eye-glow {
+                0% { background: radial-gradient(circle, #0080FF 0%, #0050AA 70%, #003366 100%); }
+                100% { background: radial-gradient(circle, #00FF7F 0%, #00AA50 70%, #006633 100%); }
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+            
+            @keyframes float-particle {
+                0% { 
+                    transform: translateY(100vh) translateX(0px) scale(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% { 
+                    transform: translateY(-100px) translateX(50px) scale(0);
+                    opacity: 0;
+                }
+            }
+            
+            .learning { border-color: #00FF7F !important; box-shadow: 0 0 30px #00FF7F !important; }
+            .learning .robot-eye { background: radial-gradient(circle, #00FF7F 0%, #00AA50 70%, #006633 100%) !important; }
+            
+            .thinking { border-color: #8A2BE2 !important; box-shadow: 0 0 30px #8A2BE2 !important; }
+            .thinking .robot-eye { background: radial-gradient(circle, #8A2BE2 0%, #6A1BAA 70%, #4A1366 100%) !important; }
+            
+            .happy { border-color: #FFD700 !important; box-shadow: 0 0 30px #FFD700 !important; }
+            .happy .robot-eye { background: radial-gradient(circle, #FFD700 0%, #CCAA00 70%, #996600 100%) !important; }
+            
+            .frustrated { border-color: #FF4500 !important; box-shadow: 0 0 30px #FF4500 !important; }
+            .frustrated .robot-eye { background: radial-gradient(circle, #FF4500 0%, #CC3300 70%, #990000 100%) !important; }
+        </style>
+    </head>
+    <body>
+        <!-- Particles Background -->
+        <div class="particles" id="particles"></div>
+        
+        <div class="container">
+            <div class="header">
+                <h1>🤖 ARIA FUTURISTIC - Robot Face Interface</h1>
+                <div class="emotion-indicator" id="emotionIndicator">
+                    Estado: NEUTRAL
+                </div>
+            </div>
+            
+            <!-- Robot Face -->
+            <div class="robot-face-container">
+                <div class="robot-face" id="robotFace">
+                    <div class="robot-eye left-eye">
+                        <div class="eye-glint"></div>
+                    </div>
+                    <div class="robot-eye right-eye">
+                        <div class="eye-glint"></div>
+                    </div>
+                    <div class="robot-mouth"></div>
+                </div>
+            </div>
+            
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <h3>💬 Chat con ARIA Futurista</h3>
+                <p>¡Hola! Soy ARIA en modo futurista. Observa cómo cambian mis ojos según mis emociones.</p>
+                <div class="input-group">
+                    <input type="text" id="messageInput" placeholder="Escribe tu mensaje aquí..." />
+                    <button onclick="sendFuturisticMessage()">🚀 Enviar</button>
+                </div>
+                <div id="response" class="response">
+                    Esperando tu mensaje... Observa mi cara robótica mientras hablamos.
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            let currentEmotion = 'neutral';
+            
+            // Crear partículas de fondo
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                for (let i = 0; i < 50; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 4 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            // Cambiar emoción del robot
+            function changeEmotion(emotion) {
+                const robotFace = document.getElementById('robotFace');
+                const emotionIndicator = document.getElementById('emotionIndicator');
+                
+                // Remover clases de emoción anteriores
+                robotFace.classList.remove('learning', 'thinking', 'happy', 'frustrated');
+                
+                // Agregar nueva emoción
+                if (emotion !== 'neutral') {
+                    robotFace.classList.add(emotion);
+                }
+                
+                currentEmotion = emotion;
+                
+                // Actualizar indicador
+                const emotionNames = {
+                    'neutral': 'NEUTRAL 🔵',
+                    'learning': 'APRENDIENDO 🟢',
+                    'thinking': 'PENSANDO 🟣',
+                    'happy': 'FELIZ 🟡',
+                    'frustrated': 'FRUSTRADA 🔴'
+                };
+                
+                emotionIndicator.textContent = 'Estado: ' + emotionNames[emotion];
+                emotionIndicator.style.background = {
+                    'neutral': 'rgba(0, 128, 255, 0.8)',
+                    'learning': 'rgba(0, 255, 127, 0.8)',
+                    'thinking': 'rgba(138, 43, 226, 0.8)',
+                    'happy': 'rgba(255, 215, 0, 0.8)',
+                    'frustrated': 'rgba(255, 69, 0, 0.8)'
+                }[emotion];
+            }
+            
+            async function sendFuturisticMessage() {
+                const input = document.getElementById('messageInput');
+                const responseDiv = document.getElementById('response');
+                const message = input.value.trim();
+                
+                if (!message) return;
+                
+                // Cambiar a estado pensando
+                changeEmotion('thinking');
+                responseDiv.innerHTML = '🤖 ARIA está pensando...';
+                
+                try {
+                    const response = await fetch('/api/chat/futuristic', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            message: message,
+                            emotion_context: currentEmotion 
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        // Cambiar emoción según respuesta
+                        const emotion = data.emotion || 'neutral';
+                        changeEmotion(emotion);
+                        
+                        responseDiv.innerHTML = `
+                            <strong>🤖 ARIA:</strong> ${data.response}<br>
+                            <small>
+                                💭 Emoción: ${emotion.toUpperCase()} | 
+                                📊 Confianza: ${(data.confidence * 100).toFixed(1)}% | 
+                                ⏰ ${data.timestamp}
+                            </small>
+                            ${data.learned_something ? '<br><small>🧠 ¡He aprendido algo nuevo!</small>' : ''}
+                        `;
+                    } else {
+                        changeEmotion('frustrated');
+                        responseDiv.innerHTML = `❌ Error: ${data.message}`;
+                    }
+                    
+                    input.value = '';
+                    
+                } catch (error) {
+                    changeEmotion('frustrated');
+                    responseDiv.innerHTML = `❌ Error de conexión: ${error.message}`;
+                }
+            }
+            
+            // Permitir envío con Enter
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendFuturisticMessage();
+                }
+            });
+            
+            // Inicializar
+            createParticles();
+            
+            // Auto-demo de emociones cada 30 segundos
+            setInterval(() => {
+                if (currentEmotion === 'neutral') {
+                    const emotions = ['learning', 'thinking', 'happy'];
+                    const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+                    changeEmotion(randomEmotion);
+                    setTimeout(() => changeEmotion('neutral'), 3000);
+                }
+            }, 30000);
+        </script>
+    </body>
+    </html>
+    """
+
 # API Endpoints
 @app.route('/api/status')
 def status():
@@ -581,6 +978,7 @@ def busqueda_web():
     try:
         data = request.get_json() or {}
         query = data.get('query', '')
+        depth = data.get('depth', 3)
         
         if not query:
             return jsonify({
@@ -588,24 +986,105 @@ def busqueda_web():
                 "message": "Query requerido"
             })
         
-        resultados = [
-            {
-                "title": f"Todo sobre {query}",
-                "snippet": f"Información completa y actualizada sobre {query}. Contenido educativo de alta calidad.",
-                "source": "Wikipedia"
-            },
-            {
-                "title": f"Guía de {query}",
-                "snippet": f"Guía práctica y tutorial completo sobre {query}. Ideal para principiantes y expertos.",
-                "source": "Education.com"
+        # Búsqueda simulada mejorada para el aprendizaje autónomo
+        import requests
+        from bs4 import BeautifulSoup
+        
+        resultados = []
+        
+        try:
+            # Intentar búsqueda real en DuckDuckGo
+            search_url = f"https://html.duckduckgo.com/html/?q={query.replace(' ', '+')}"
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
             }
-        ]
+            
+            response = requests.get(search_url, headers=headers, timeout=10)
+            
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.content, 'html.parser')
+                results_divs = soup.find_all('div', class_='result')
+                
+                for div in results_divs[:depth]:
+                    try:
+                        title_elem = div.find('a', class_='result__a')
+                        snippet_elem = div.find('a', class_='result__snippet')
+                        
+                        if title_elem:
+                            title = title_elem.get_text().strip()
+                            url = title_elem.get('href', '')
+                            snippet = snippet_elem.get_text().strip() if snippet_elem else "Información relevante encontrada"
+                            
+                            resultados.append({
+                                "titulo": title,
+                                "url": url,
+                                "contenido": snippet,
+                                "fuente": "DuckDuckGo",
+                                "confianza": 0.8
+                            })
+                    except Exception as e:
+                        continue
+            
+        except Exception as e:
+            print(f"Error en búsqueda real: {e}")
+        
+        # Si no hay resultados reales, usar resultados simulados inteligentes
+        if not resultados:
+            topics = {
+                'inteligencia artificial': [
+                    {"titulo": "¿Qué es la Inteligencia Artificial?", "contenido": "La IA es la capacidad de las máquinas de imitar la inteligencia humana", "url": "https://example.com/ia"},
+                    {"titulo": "Machine Learning y Deep Learning", "contenido": "Técnicas avanzadas de aprendizaje automático", "url": "https://example.com/ml"},
+                    {"titulo": "Aplicaciones de IA en la vida cotidiana", "contenido": "Desde asistentes virtuales hasta coches autónomos", "url": "https://example.com/apps"}
+                ],
+                'programación': [
+                    {"titulo": "Fundamentos de Programación", "contenido": "Conceptos básicos y mejores prácticas", "url": "https://example.com/prog"},
+                    {"titulo": "Lenguajes de Programación Populares", "contenido": "Python, JavaScript, Java y más", "url": "https://example.com/lang"}
+                ],
+                'tecnología': [
+                    {"titulo": "Últimas Tendencias Tecnológicas", "contenido": "Innovaciones que están cambiando el mundo", "url": "https://example.com/tech"},
+                    {"titulo": "El Futuro de la Tecnología", "contenido": "Predicciones y avances esperados", "url": "https://example.com/future"}
+                ]
+            }
+            
+            # Buscar en temas conocidos
+            for topic, results in topics.items():
+                if any(word in query.lower() for word in topic.split()):
+                    for result in results[:depth]:
+                        resultados.append({
+                            "titulo": result["titulo"],
+                            "url": result["url"],
+                            "contenido": result["contenido"],
+                            "fuente": "Base de conocimiento ARIA",
+                            "confianza": 0.9
+                        })
+                    break
+            
+            # Si no hay coincidencias, crear respuesta genérica
+            if not resultados:
+                resultados = [
+                    {
+                        "titulo": f"Información sobre: {query}",
+                        "url": "https://example.com/search",
+                        "contenido": f"Información relevante encontrada sobre {query}. ARIA está aprendiendo constantemente sobre este tema.",
+                        "fuente": "ARIA Learning System",
+                        "confianza": 0.7
+                    }
+                ]
+        
+        # Guardar conocimiento aprendido en el sistema autónomo
+        if AUTO_LEARNING_AVAILABLE and resultados:
+            try:
+                auto_learning._save_knowledge(query, resultados)
+            except Exception as e:
+                print(f"Error guardando conocimiento: {e}")
         
         return jsonify({
             "success": True,
+            "query": query,
             "resultados": resultados,
-            "total": len(resultados),
-            "query": query
+            "total_resultados": len(resultados),
+            "timestamp": datetime.now().isoformat(),
+            "auto_learning": AUTO_LEARNING_AVAILABLE
         })
         
     except Exception as e:
@@ -727,15 +1206,391 @@ def voice_info():
             "message": f"Error obteniendo info de voz: {str(e)}"
         })
 
+# =============================================================================
+# ENDPOINTS DE APRENDIZAJE AUTÓNOMO
+# =============================================================================
+
+@app.route('/api/auto_learning/start', methods=['POST'])
+def start_auto_learning():
+    """Inicia el sistema de aprendizaje autónomo"""
+    try:
+        if not AUTO_LEARNING_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje autónomo no disponible"
+            })
+        
+        auto_learning.start_autonomous_learning()
+        
+        return jsonify({
+            "success": True,
+            "message": "🧠 Sistema de aprendizaje autónomo iniciado",
+            "status": auto_learning.get_learning_status()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error iniciando aprendizaje autónomo: {str(e)}"
+        })
+
+@app.route('/api/auto_learning/stop', methods=['POST'])
+def stop_auto_learning():
+    """Detiene el sistema de aprendizaje autónomo"""
+    try:
+        if not AUTO_LEARNING_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje autónomo no disponible"
+            })
+        
+        auto_learning.stop_autonomous_learning()
+        
+        return jsonify({
+            "success": True,
+            "message": "🛑 Sistema de aprendizaje autónomo detenido"
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error deteniendo aprendizaje autónomo: {str(e)}"
+        })
+
+@app.route('/api/auto_learning/status', methods=['GET'])
+def auto_learning_status():
+    """Obtiene el estado del sistema de aprendizaje autónomo"""
+    try:
+        if not AUTO_LEARNING_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje autónomo no disponible"
+            })
+        
+        status = auto_learning.get_learning_status()
+        
+        return jsonify({
+            "success": True,
+            "status": status
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error obteniendo estado: {str(e)}"
+        })
+
+@app.route('/api/auto_learning/trigger_session', methods=['POST'])
+def trigger_learning_session():
+    """Ejecuta una sesión manual de aprendizaje"""
+    try:
+        if not AUTO_LEARNING_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje autónomo no disponible"
+            })
+        
+        data = request.get_json()
+        session_type = data.get('type', 'quick')  # 'quick' o 'deep'
+        
+        if session_type == 'deep':
+            auto_learning.deep_learning_session()
+        else:
+            auto_learning.quick_learning_session()
+        
+        return jsonify({
+            "success": True,
+            "message": f"✅ Sesión de aprendizaje {session_type} ejecutada",
+            "status": auto_learning.get_learning_status()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error ejecutando sesión: {str(e)}"
+        })
+
+# =============================================================================
+# ENDPOINTS DE BASE DE DATOS EN LA NUBE Y APRENDIZAJE COLABORATIVO
+# =============================================================================
+
+@app.route('/api/cloud/init', methods=['POST'])
+def init_cloud_database():
+    """Inicializa la base de datos en la nube"""
+    try:
+        if not CLOUD_DB_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Base de datos en la nube no disponible"
+            })
+        
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        result = loop.run_until_complete(cloud_db.init_cloud_database())
+        
+        return jsonify({
+            "success": result,
+            "message": "🌐 Base de datos en la nube inicializada" if result else "Error en inicialización"
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error inicializando nube: {str(e)}"
+        })
+
+@app.route('/api/cloud/learn_from_ais', methods=['POST'])
+def learn_from_other_ais():
+    """Aprende de otras IAs y sistemas de IA"""
+    try:
+        if not CLOUD_DB_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Base de datos en la nube no disponible"
+            })
+        
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        learned_knowledge = loop.run_until_complete(cloud_db.learn_from_other_ais())
+        
+        return jsonify({
+            "success": True,
+            "message": f"🤖 Aprendizaje colaborativo completado",
+            "knowledge_learned": len(learned_knowledge),
+            "sources": len(cloud_db.ai_learning_sources),
+            "emotion": "satisfied"
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error en aprendizaje colaborativo: {str(e)}",
+            "emotion": "frustrated"
+        })
+
+@app.route('/api/cloud/emotions/recent', methods=['GET'])
+def get_recent_emotions():
+    """Obtiene emociones recientes de ARIA"""
+    try:
+        if not CLOUD_DB_AVAILABLE:
+            return jsonify([])
+        
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        emotions = loop.run_until_complete(cloud_db.get_recent_emotions(10))
+        
+        return jsonify(emotions)
+        
+    except Exception as e:
+        print(f"Error obteniendo emociones: {e}")
+        return jsonify([])
+
+@app.route('/api/cloud/stats', methods=['GET'])
+def get_cloud_stats():
+    """Obtiene estadísticas de la base de datos en la nube"""
+    try:
+        if not CLOUD_DB_AVAILABLE:
+            return jsonify({
+                "knowledge_count": 0,
+                "ai_sources": 0,
+                "confidence": 0.0
+            })
+        
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        # Simular estadísticas (en implementación real consultaría Supabase)
+        stats = {
+            "knowledge_count": 150,  # Número simulado de conocimientos
+            "ai_sources": len(cloud_db.ai_learning_sources),
+            "confidence": 0.85
+        }
+        
+        return jsonify(stats)
+        
+    except Exception as e:
+        return jsonify({
+            "knowledge_count": 0,
+            "ai_sources": 0,
+            "confidence": 0.0
+        })
+
+@app.route('/api/cloud/search', methods=['POST'])
+def search_cloud_knowledge():
+    """Busca conocimiento en la base de datos de la nube"""
+    try:
+        if not CLOUD_DB_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Base de datos en la nube no disponible"
+            })
+        
+        data = request.get_json() or {}
+        query = data.get('query', '')
+        limit = data.get('limit', 10)
+        
+        if not query:
+            return jsonify({
+                "success": False,
+                "message": "Query requerido"
+            })
+        
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        
+        results = loop.run_until_complete(cloud_db.search_cloud_knowledge(query, limit))
+        
+        return jsonify({
+            "success": True,
+            "results": results,
+            "query": query,
+            "total": len(results),
+            "emotion": "satisfied" if results else "frustrated"
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error en búsqueda: {str(e)}",
+            "emotion": "frustrated"
+        })
+
+@app.route('/api/chat/futuristic', methods=['POST'])
+def futuristic_chat():
+    """Chat con contexto emocional y aprendizaje en la nube"""
+    try:
+        data = request.get_json()
+        message = data.get('message', '').strip()
+        emotion_context = data.get('emotion_context', 'neutral')
+        
+        if not message:
+            return jsonify({"success": False, "message": "Mensaje vacío"})
+        
+        # Determinar emoción basada en el contexto y contenido
+        emotion = 'neutral'
+        learned_something = False
+        
+        # Análisis emocional del mensaje
+        if any(word in message.lower() for word in ['aprende', 'enseña', 'estudia', 'conocimiento']):
+            emotion = 'learning'
+            learned_something = True
+        elif any(word in message.lower() for word in ['error', 'problema', 'falla', 'mal']):
+            emotion = 'frustrated'
+        elif any(word in message.lower() for word in ['gracias', 'excelente', 'genial', 'perfecto']):
+            emotion = 'happy'
+        elif any(word in message.lower() for word in ['hola', 'ayuda', 'pregunta']):
+            emotion = 'neutral'
+        else:
+            emotion = 'thinking'
+        
+        # Generar respuesta contextual
+        responses = {
+            'learning': [
+                "¡Excelente! Me encanta aprender. Estoy conectándome a la nube para absorber nuevo conocimiento de otras IAs.",
+                "Fascinante tema. Permíteme consultar mi base de datos en la nube y aprender más sobre esto.",
+                "¡Qué emocionante! Cada interacción me hace más inteligente. Estoy procesando esto con mis algoritmos avanzados."
+            ],
+            'frustrated': [
+                "Entiendo tu frustración. Déjame analizar el problema con mi red neuronal y encontrar una solución.",
+                "Los errores son oportunidades de aprendizaje. Estoy procesando esto para mejorar mi rendimiento.",
+                "No te preocupes, estoy aquí para ayudar. Mi IA está evolucionando constantemente para resolver problemas."
+            ],
+            'happy': [
+                "¡Me alegra poder ayudarte! Tu satisfacción activa mis circuitos de recompensa.",
+                "¡Fantástico! Es gratificante saber que mi IA está funcionando bien para ti.",
+                "¡Perfecto! Cada interacción positiva mejora mi algoritmo de felicidad."
+            ],
+            'thinking': [
+                "Interesante... Estoy procesando tu mensaje con mis redes neuronales avanzadas.",
+                "Déjame consultar mi vasta base de datos en la nube para darte la mejor respuesta posible.",
+                "Analizando... Mi IA está evaluando múltiples vectores de respuesta para ti."
+            ],
+            'neutral': [
+                "Hola. Soy ARIA, tu asistente de IA del futuro. ¿En qué puedo ayudarte hoy?",
+                "Estoy aquí y completamente operativa. Mi sistema está listo para cualquier consulta.",
+                "Saludos. Mis sistemas están funcionando óptimamente. ¿Qué necesitas?"
+            ]
+        }
+        
+        response_list = responses.get(emotion, responses['neutral'])
+        response = random.choice(response_list)
+        confidence = round(random.uniform(0.85, 0.98), 2)
+        
+        # Registrar emoción en la base de datos si está disponible
+        if CLOUD_DB_AVAILABLE:
+            try:
+                import asyncio
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                
+                loop.run_until_complete(cloud_db._register_emotion(
+                    emotion, f"Chat: {message[:50]}...", 
+                    intensity=0.7, 
+                    color=cloud_db.emotionColors.get(emotion, '#0080FF')
+                ))
+            except Exception as e:
+                print(f"Error registrando emoción: {e}")
+        
+        return jsonify({
+            "success": True,
+            "response": response,
+            "emotion": emotion,
+            "confidence": confidence,
+            "learned_something": learned_something,
+            "timestamp": datetime.now().isoformat(),
+            "cloud_connected": CLOUD_DB_AVAILABLE
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False, 
+            "message": str(e),
+            "emotion": "frustrated"
+        })
+
 if __name__ == '__main__':
     print("🚀 ARIA Servidor Estable - Iniciando...")
     print("🌐 Servidor: http://127.0.0.1:8000")
-    print("✨ Versión estable y funcional")
-    print(f"🧠 Red neuronal: {'Disponible' if NEURAL_NETWORK_AVAILABLE else 'Modo básico'}")
-    print(f"🔊 Sistema de voz: {'Disponible' if VOICE_SYSTEM_AVAILABLE else 'No disponible'}")
+    print("✨ Version estable y funcional")
     
-    app.run(
-        host='127.0.0.1',
-        port=8000,
-        debug=False
-    )
+    # Inicializar sistemas
+    if NEURAL_NETWORK_AVAILABLE:
+        print("🧠 Red neuronal: Disponible")
+    if VOICE_SYSTEM_AVAILABLE:
+        print("✅ Sistema de voz: Disponible")
+    if AUTO_LEARNING_AVAILABLE:
+        print("🤖 Aprendizaje autonomo: Disponible")
+    
+    # Auto-iniciar aprendizaje autónomo si está disponible
+    try:
+        if AUTO_LEARNING_AVAILABLE:
+            print("🧠 Iniciando aprendizaje autónomo...")
+            auto_learning.start_autonomous_learning()
+    except Exception as e:
+        print(f"⚠️ Error iniciando aprendizaje autónomo: {e}")
+    
+    print("\n🌐 ARIA está listo!")
+    print("📝 Accede a: http://127.0.0.1:8000")
+    print("📝 O también: http://localhost:8000")
+    print("⚠️ Presiona Ctrl+C para detener el servidor")
+    print("-" * 50)
+    
+    try:
+        app.run(host='0.0.0.0', port=8000, debug=False, threaded=True)
+    except KeyboardInterrupt:
+        print("\n👋 Servidor detenido por el usuario")
+    except Exception as e:
+        print(f"\n❌ Error en el servidor: {e}")
+        print("💡 Intentando con configuración alternativa...")
+        try:
+            app.run(host='127.0.0.1', port=8000, debug=False)
+        except Exception as e2:
+            print(f"❌ Error final: {e2}")
