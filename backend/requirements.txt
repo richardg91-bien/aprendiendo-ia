@@ -1,0 +1,33 @@
+# ARIA Backend Requirements
+# Core Web Framework
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# HTTP Client
+requests==2.31.0
+
+# Data Processing
+python-dotenv==1.0.0
+
+# Text-to-Speech (Síntesis de voz Spock)
+pyttsx3==2.90
+
+# Production Server
+gunicorn==21.2.0
+
+# Database (for feedback system)
+psycopg2-binary==2.9.7
+
+# Development Tools
+pytest==7.4.0
+pytest-flask==1.3.0
+
+# Dictionary Learning System
+sqlite3  # Built-in with Python
+threading  # Built-in with Python
+pathlib  # Built-in with Python
+
+# Optional: For advanced AI features (future)
+# numpy==1.24.3
+# scikit-learn==1.3.0
+# tensorflow==2.13.0

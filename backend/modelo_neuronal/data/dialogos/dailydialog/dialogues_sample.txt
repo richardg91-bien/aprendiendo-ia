@@ -1,0 +1,3 @@
+Hi, how are you doing? __eou__ I'm doing well, thank you. How about you? __eou__ I'm good too. What are your plans for today? __eou__ I'm planning to study some AI concepts. What about you? __eou__ That sounds interesting! I might work on my programming skills.
+Good morning! __eou__ Good morning! How did you sleep? __eou__ I slept well, thanks. Ready for a new day? __eou__ Absolutely! I have some exciting projects to work on. __eou__ That's great! What kind of projects?
+Can you help me with something? __eou__ Of course! What do you need help with? __eou__ I'm trying to understand machine learning better. __eou__ That's a fascinating topic. What specific area interests you? __eou__ I'm particularly interested in natural language processing.

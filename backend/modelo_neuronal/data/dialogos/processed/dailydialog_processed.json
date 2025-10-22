@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "total_dialogs": 3,
+    "source": "DailyDialog",
+    "language": "en",
+    "processed_date": "2025-10-20T20:20:40.614539",
+    "description": "Processed DailyDialog dataset for conversational AI training"
+  },
+  "dialogs": [
+    {
+      "dialog_id": "dailydialog_dialogues_sample_0000",
+      "source": "dailydialog",
+      "language": "en",
+      "turns": [
+        {
+          "turn_id": 0,
+          "speaker": "user",
+          "text": "Hi, how are you doing?",
+          "length": 22
+        },
+        {
+          "turn_id": 1,
+          "speaker": "assistant",
+          "text": "I'm doing well, thank you. How about you?",
+          "length": 41
+        },
+        {
+          "turn_id": 2,
+          "speaker": "user",
+          "text": "I'm good too. What are your plans for today?",
+          "length": 44
+        },
+        {
+          "turn_id": 3,
+          "speaker": "assistant",
+          "text": "I'm planning to study some AI concepts. What about you?",
+          "length": 55
+        },
+        {
+          "turn_id": 4,
+          "speaker": "user",
+          "text": "That sounds interesting! I might work on my programming skills.",
+          "length": 63
+        }
+      ]
+    },
+    {
+      "dialog_id": "dailydialog_dialogues_sample_0001",
+      "source": "dailydialog",
+      "language": "en",
+      "turns": [
+        {
+          "turn_id": 0,
+          "speaker": "user",
+          "text": "Good morning!",
+          "length": 13
+        },
+        {
+          "turn_id": 1,
+          "speaker": "assistant",
+          "text": "Good morning! How did you sleep?",
+          "length": 32
+        },
+        {
+          "turn_id": 2,
+          "speaker": "user",
+          "text": "I slept well, thanks. Ready for a new day?",
+          "length": 42
+        },
+        {
+          "turn_id": 3,
+          "speaker": "assistant",
+          "text": "Absolutely! I have some exciting projects to work on.",
+          "length": 53
+        },
+        {
+          "turn_id": 4,
+          "speaker": "user",
+          "text": "That's great! What kind of projects?",
+          "length": 36
+        }
+      ]
+    },
+    {
+      "dialog_id": "dailydialog_dialogues_sample_0002",
+      "source": "dailydialog",
+      "language": "en",
+      "turns": [
+        {
+          "turn_id": 0,
+          "speaker": "user",
+          "text": "Can you help me with something?",
+          "length": 31
+        },
+        {
+          "turn_id": 1,
+          "speaker": "assistant",
+          "text": "Of course! What do you need help with?",
+          "length": 38
+        },
+        {
+          "turn_id": 2,
+          "speaker": "user",
+          "text": "I'm trying to understand machine learning better.",
+          "length": 49
+        },
+        {
+          "turn_id": 3,
+          "speaker": "assistant",
+          "text": "That's a fascinating topic. What specific area interests you?",
+          "length": 61
+        },
+        {
+          "turn_id": 4,
+          "speaker": "user",
+          "text": "I'm particularly interested in natural language processing.",
+          "length": 59
+        }
+      ]
+    }
+  ]
+}

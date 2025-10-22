@@ -1,0 +1,107 @@
+# Archivos específicos de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entorno virtual
+venv/
+env/
+ENV/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# Variables de entorno
+.env
+.env.local
+.env.production
+.env.staging
+
+# Logs y datos temporales
+*.log
+/data/logs/*.log
+/data/temp/
+/data/cache/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node.js (frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build del frontend
+/frontend/build/
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+
+# Archivos de base de datos locales
+*.db
+*.sqlite
+*.sqlite3
+
+# Modelos de IA grandes
+*.h5
+*.pkl
+*.bin
+*.safetensors
+
+# Archivos temporales de desarrollo
+temp/
+tmp/
+.temp/
+test_output/
+
+# Archivos de backup
+*.backup
+*.bak
+*_backup.*
+
+# Archivos duplicados (para evitar que vuelvan a aparecer en raíz)
+/*.bat
+/*.py
+/*.md
+!README.md
+/*.json
+!package.json
+/*.sql
+/*.txt
+/*.ps1
+/*.sh
+
+# Mantener solo la estructura organizada
+!/scripts/
+!/config/
+!/docs/
+!/data/
+!/legacy/

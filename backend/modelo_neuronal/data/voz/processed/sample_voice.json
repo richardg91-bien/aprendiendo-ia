@@ -1,0 +1,609 @@
+{
+  "metadata": {
+    "total_samples": 100,
+    "sample_rate": 16000,
+    "format": "wav"
+  },
+  "samples": [
+    {
+      "audio_file": "sample_000.wav",
+      "transcript": "Texto de ejemplo número 0",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_001.wav",
+      "transcript": "Texto de ejemplo número 1",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_002.wav",
+      "transcript": "Texto de ejemplo número 2",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_003.wav",
+      "transcript": "Texto de ejemplo número 3",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_004.wav",
+      "transcript": "Texto de ejemplo número 4",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_005.wav",
+      "transcript": "Texto de ejemplo número 5",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_006.wav",
+      "transcript": "Texto de ejemplo número 6",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_007.wav",
+      "transcript": "Texto de ejemplo número 7",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_008.wav",
+      "transcript": "Texto de ejemplo número 8",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_009.wav",
+      "transcript": "Texto de ejemplo número 9",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_010.wav",
+      "transcript": "Texto de ejemplo número 10",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_011.wav",
+      "transcript": "Texto de ejemplo número 11",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_012.wav",
+      "transcript": "Texto de ejemplo número 12",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_013.wav",
+      "transcript": "Texto de ejemplo número 13",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_014.wav",
+      "transcript": "Texto de ejemplo número 14",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_015.wav",
+      "transcript": "Texto de ejemplo número 15",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_016.wav",
+      "transcript": "Texto de ejemplo número 16",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_017.wav",
+      "transcript": "Texto de ejemplo número 17",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_018.wav",
+      "transcript": "Texto de ejemplo número 18",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_019.wav",
+      "transcript": "Texto de ejemplo número 19",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_020.wav",
+      "transcript": "Texto de ejemplo número 20",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_021.wav",
+      "transcript": "Texto de ejemplo número 21",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_022.wav",
+      "transcript": "Texto de ejemplo número 22",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_023.wav",
+      "transcript": "Texto de ejemplo número 23",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_024.wav",
+      "transcript": "Texto de ejemplo número 24",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_025.wav",
+      "transcript": "Texto de ejemplo número 25",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_026.wav",
+      "transcript": "Texto de ejemplo número 26",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_027.wav",
+      "transcript": "Texto de ejemplo número 27",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_028.wav",
+      "transcript": "Texto de ejemplo número 28",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_029.wav",
+      "transcript": "Texto de ejemplo número 29",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_030.wav",
+      "transcript": "Texto de ejemplo número 30",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_031.wav",
+      "transcript": "Texto de ejemplo número 31",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_032.wav",
+      "transcript": "Texto de ejemplo número 32",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_033.wav",
+      "transcript": "Texto de ejemplo número 33",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_034.wav",
+      "transcript": "Texto de ejemplo número 34",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_035.wav",
+      "transcript": "Texto de ejemplo número 35",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_036.wav",
+      "transcript": "Texto de ejemplo número 36",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_037.wav",
+      "transcript": "Texto de ejemplo número 37",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_038.wav",
+      "transcript": "Texto de ejemplo número 38",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_039.wav",
+      "transcript": "Texto de ejemplo número 39",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_040.wav",
+      "transcript": "Texto de ejemplo número 40",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_041.wav",
+      "transcript": "Texto de ejemplo número 41",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_042.wav",
+      "transcript": "Texto de ejemplo número 42",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_043.wav",
+      "transcript": "Texto de ejemplo número 43",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_044.wav",
+      "transcript": "Texto de ejemplo número 44",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_045.wav",
+      "transcript": "Texto de ejemplo número 45",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_046.wav",
+      "transcript": "Texto de ejemplo número 46",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_047.wav",
+      "transcript": "Texto de ejemplo número 47",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_048.wav",
+      "transcript": "Texto de ejemplo número 48",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_049.wav",
+      "transcript": "Texto de ejemplo número 49",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_050.wav",
+      "transcript": "Texto de ejemplo número 50",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_051.wav",
+      "transcript": "Texto de ejemplo número 51",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_052.wav",
+      "transcript": "Texto de ejemplo número 52",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_053.wav",
+      "transcript": "Texto de ejemplo número 53",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_054.wav",
+      "transcript": "Texto de ejemplo número 54",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_055.wav",
+      "transcript": "Texto de ejemplo número 55",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_056.wav",
+      "transcript": "Texto de ejemplo número 56",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_057.wav",
+      "transcript": "Texto de ejemplo número 57",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_058.wav",
+      "transcript": "Texto de ejemplo número 58",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_059.wav",
+      "transcript": "Texto de ejemplo número 59",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_060.wav",
+      "transcript": "Texto de ejemplo número 60",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_061.wav",
+      "transcript": "Texto de ejemplo número 61",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_062.wav",
+      "transcript": "Texto de ejemplo número 62",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_063.wav",
+      "transcript": "Texto de ejemplo número 63",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_064.wav",
+      "transcript": "Texto de ejemplo número 64",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_065.wav",
+      "transcript": "Texto de ejemplo número 65",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_066.wav",
+      "transcript": "Texto de ejemplo número 66",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_067.wav",
+      "transcript": "Texto de ejemplo número 67",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_068.wav",
+      "transcript": "Texto de ejemplo número 68",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_069.wav",
+      "transcript": "Texto de ejemplo número 69",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_070.wav",
+      "transcript": "Texto de ejemplo número 70",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_071.wav",
+      "transcript": "Texto de ejemplo número 71",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_072.wav",
+      "transcript": "Texto de ejemplo número 72",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_073.wav",
+      "transcript": "Texto de ejemplo número 73",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_074.wav",
+      "transcript": "Texto de ejemplo número 74",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_075.wav",
+      "transcript": "Texto de ejemplo número 75",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_076.wav",
+      "transcript": "Texto de ejemplo número 76",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_077.wav",
+      "transcript": "Texto de ejemplo número 77",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_078.wav",
+      "transcript": "Texto de ejemplo número 78",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_079.wav",
+      "transcript": "Texto de ejemplo número 79",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_080.wav",
+      "transcript": "Texto de ejemplo número 80",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_081.wav",
+      "transcript": "Texto de ejemplo número 81",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_082.wav",
+      "transcript": "Texto de ejemplo número 82",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_083.wav",
+      "transcript": "Texto de ejemplo número 83",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_084.wav",
+      "transcript": "Texto de ejemplo número 84",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_085.wav",
+      "transcript": "Texto de ejemplo número 85",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_086.wav",
+      "transcript": "Texto de ejemplo número 86",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_087.wav",
+      "transcript": "Texto de ejemplo número 87",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_088.wav",
+      "transcript": "Texto de ejemplo número 88",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_089.wav",
+      "transcript": "Texto de ejemplo número 89",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    },
+    {
+      "audio_file": "sample_090.wav",
+      "transcript": "Texto de ejemplo número 90",
+      "duration": 2.5,
+      "speaker_id": "speaker_0"
+    },
+    {
+      "audio_file": "sample_091.wav",
+      "transcript": "Texto de ejemplo número 91",
+      "duration": 2.5,
+      "speaker_id": "speaker_1"
+    },
+    {
+      "audio_file": "sample_092.wav",
+      "transcript": "Texto de ejemplo número 92",
+      "duration": 2.5,
+      "speaker_id": "speaker_2"
+    },
+    {
+      "audio_file": "sample_093.wav",
+      "transcript": "Texto de ejemplo número 93",
+      "duration": 2.5,
+      "speaker_id": "speaker_3"
+    },
+    {
+      "audio_file": "sample_094.wav",
+      "transcript": "Texto de ejemplo número 94",
+      "duration": 2.5,
+      "speaker_id": "speaker_4"
+    },
+    {
+      "audio_file": "sample_095.wav",
+      "transcript": "Texto de ejemplo número 95",
+      "duration": 2.5,
+      "speaker_id": "speaker_5"
+    },
+    {
+      "audio_file": "sample_096.wav",
+      "transcript": "Texto de ejemplo número 96",
+      "duration": 2.5,
+      "speaker_id": "speaker_6"
+    },
+    {
+      "audio_file": "sample_097.wav",
+      "transcript": "Texto de ejemplo número 97",
+      "duration": 2.5,
+      "speaker_id": "speaker_7"
+    },
+    {
+      "audio_file": "sample_098.wav",
+      "transcript": "Texto de ejemplo número 98",
+      "duration": 2.5,
+      "speaker_id": "speaker_8"
+    },
+    {
+      "audio_file": "sample_099.wav",
+      "transcript": "Texto de ejemplo número 99",
+      "duration": 2.5,
+      "speaker_id": "speaker_9"
+    }
+  ]
+}

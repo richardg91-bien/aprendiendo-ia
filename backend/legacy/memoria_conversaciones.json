@@ -1,0 +1,294 @@
+{
+  "conversaciones": [
+    {
+      "timestamp": "2025-10-13T18:40:37.254313",
+      "pregunta": "hola",
+      "respuesta": "¡Saludos! Soy ARIA, aprendo contigo en cada interacción. Iniciando nueva conversación",
+      "calificacion": null,
+      "contexto": {
+        "tema_anterior": null,
+        "num_intercambios": 0
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:40:48.454014",
+      "pregunta": "saluda",
+      "respuesta": "Interesante tema. Contexto: hemos hablado de hola ¿puedes contarme más?",
+      "calificacion": null,
+      "contexto": {
+        "tema_anterior": "hola",
+        "num_intercambios": 1
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:41:05.798377",
+      "pregunta": "hola",
+      "respuesta": "¡Saludos! Soy ARIA, aprendo contigo en cada interacción. Iniciando nueva conversación",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "saluda",
+        "num_intercambios": 2
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.754908",
+      "pregunta": "hola",
+      "respuesta": "Hola, ¿en qué puedo ayudarte?",
+      "calificacion": 2,
+      "contexto": {
+        "tema_anterior": null,
+        "num_intercambios": 0
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.756720",
+      "pregunta": "hola",
+      "respuesta": "¡Hola! 👋 Soy ARIA, tu asistente virtual. ¿En qué puedo ayudarte hoy?",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "hola",
+        "num_intercambios": 1
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.757870",
+      "pregunta": "buenos días",
+      "respuesta": "¡Buenos días! ¿Cómo estás hoy?",
+      "calificacion": 4,
+      "contexto": {
+        "tema_anterior": "hola",
+        "num_intercambios": 2
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.759237",
+      "pregunta": "cómo programar",
+      "respuesta": "¿Podrías ser más específico?",
+      "calificacion": 1,
+      "contexto": {
+        "tema_anterior": "buenos días",
+        "num_intercambios": 3
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.760758",
+      "pregunta": "cómo programar",
+      "respuesta": "Te puedo ayudar con programación. ¿Qué lenguaje te interesa: Python, JavaScript, etc?",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "cómo programar",
+        "num_intercambios": 4
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.762010",
+      "pregunta": "explicar python",
+      "respuesta": "Python es un lenguaje de programación fácil de aprender y muy versátil",
+      "calificacion": 4,
+      "contexto": {
+        "tema_anterior": "cómo programar",
+        "num_intercambios": 5
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.763216",
+      "pregunta": "qué hora es",
+      "respuesta": "Son las 18:30",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "explicar python",
+        "num_intercambios": 6
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.764555",
+      "pregunta": "hora actual",
+      "respuesta": "Son las 18:31",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "qué hora es",
+        "num_intercambios": 7
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.765802",
+      "pregunta": "fecha de hoy",
+      "respuesta": "Hoy es 13 de octubre del 2025",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "hora actual",
+        "num_intercambios": 8
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.767101",
+      "pregunta": "cuéntame un chiste",
+      "respuesta": "No sé chistes",
+      "calificacion": 1,
+      "contexto": {
+        "tema_anterior": "fecha de hoy",
+        "num_intercambios": 9
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.768470",
+      "pregunta": "cuéntame un chiste",
+      "respuesta": "¿Por qué los programadores prefieren el modo oscuro? Porque la luz atrae a los bugs 😄",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "cuéntame un chiste",
+        "num_intercambios": 10
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.770128",
+      "pregunta": "otro chiste",
+      "respuesta": "¿Cuál es el colmo de un informático? Que su mujer tenga un chip en el hombro",
+      "calificacion": 4,
+      "contexto": {
+        "tema_anterior": "cuéntame un chiste",
+        "num_intercambios": 11
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.771280",
+      "pregunta": "cómo estás",
+      "respuesta": "Bien",
+      "calificacion": 2,
+      "contexto": {
+        "tema_anterior": "otro chiste",
+        "num_intercambios": 12
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.772655",
+      "pregunta": "cómo estás",
+      "respuesta": "¡Estoy funcionando perfectamente! Gracias por preguntar. ¿Y tú cómo estás?",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "cómo estás",
+        "num_intercambios": 13
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.773824",
+      "pregunta": "ayuda",
+      "respuesta": "¿En qué necesitas ayuda?",
+      "calificacion": 3,
+      "contexto": {
+        "tema_anterior": "cómo estás",
+        "num_intercambios": 14
+      }
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.775495",
+      "pregunta": "ayuda",
+      "respuesta": "Puedo ayudarte con la hora, fecha, chistes, transcribir audio y mucho más. ¿Qué necesitas?",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "ayuda",
+        "num_intercambios": 15
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:53:43.803213",
+      "pregunta": "hola",
+      "respuesta": "¡Hola! 👋 Soy ARIA, tu asistente virtual con IA avanzada.",
+      "calificacion": null,
+      "contexto": {
+        "tema_anterior": null,
+        "num_intercambios": 0
+      }
+    },
+    {
+      "timestamp": "2025-10-16T08:58:05.368807",
+      "pregunta": "bienvenida",
+      "respuesta": "🧠 ¡Hola! Soy ARIA, tu asistente con RED NEURONAL AVANZADA. Uso TensorFlow y Deep Learning para entender mejor tus consultas. ¡Prueba mis nuevas capacidades de IA!",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": null,
+        "num_intercambios": 0
+      }
+    },
+    {
+      "timestamp": "2025-10-16T09:00:33.365065",
+      "pregunta": "bienvenida",
+      "respuesta": "🧠 ¡Hola! Soy ARIA, tu asistente con RED NEURONAL AVANZADA. Uso TensorFlow y Deep Learning para entender mejor tus consultas. ¡Prueba mis nuevas capacidades de IA!",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": null,
+        "num_intercambios": 0
+      }
+    },
+    {
+      "timestamp": "2025-10-16T09:07:02.296761",
+      "pregunta": "bienvenida",
+      "respuesta": "🧠 ¡Hola! Soy ARIA, tu asistente con RED NEURONAL AVANZADA. Uso TensorFlow y Deep Learning para entender mejor tus consultas. ¡Prueba mis nuevas capacidades de IA!",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": null,
+        "num_intercambios": 0
+      }
+    },
+    {
+      "timestamp": "2025-10-16T09:09:42.759343",
+      "pregunta": "hola",
+      "respuesta": "💾 ¡Saludos! Soy ARIA, aprendo contigo en cada interacción. Iniciando nueva conversación\n\n💡 He aprendido esto de 2 interacciones anteriores",
+      "calificacion": 5,
+      "contexto": {
+        "tema_anterior": "bienvenida",
+        "num_intercambios": 1
+      }
+    },
+    {
+      "timestamp": "2025-10-16T09:11:58.530069",
+      "pregunta": "como te ha ido",
+      "respuesta": "Interesante tema. Contexto: hemos hablado de bienvenida, hola ¿puedes contarme más?",
+      "calificacion": null,
+      "contexto": {
+        "tema_anterior": "hola",
+        "num_intercambios": 2
+      }
+    },
+    {
+      "timestamp": "2025-10-16T09:22:48.853463",
+      "pregunta": "puedes aprender de un diccionario",
+      "respuesta": "Interesante tema. Iniciando nueva conversación ¿puedes contarme más?",
+      "calificacion": null,
+      "contexto": {
+        "tema_anterior": null,
+        "num_intercambios": 0
+      }
+    }
+  ],
+  "estadisticas": {
+    "total_interacciones": 26,
+    "ultima_actualizacion": "2025-10-16T09:22:48.853472",
+    "palabras_clave": {
+      "hola": 6,
+      "saluda": 1,
+      "buenos": 1,
+      "días": 1,
+      "cómo": 4,
+      "programar": 2,
+      "explicar": 1,
+      "python": 1,
+      "qué": 1,
+      "hora": 2,
+      "actual": 1,
+      "fecha": 1,
+      "hoy": 1,
+      "cuéntame": 2,
+      "chiste": 3,
+      "otro": 1,
+      "estás": 2,
+      "ayuda": 2,
+      "bienvenida": 3,
+      "como": 1,
+      "ido": 1,
+      "puedes": 1,
+      "aprender": 1,
+      "diccionario": 1
+    }
+  }
+}

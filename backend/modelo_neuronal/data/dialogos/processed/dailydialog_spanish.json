@@ -1,0 +1,137 @@
+{
+  "metadata": {
+    "total_dialogs": 3,
+    "source": "DailyDialog (Spanish Translation)",
+    "language": "es",
+    "processed_date": "2025-10-20T20:20:40.615424",
+    "description": "DailyDialog traducido al español para entrenamiento de IA conversacional"
+  },
+  "dialogs": [
+    {
+      "dialog_id": "dailydialog_dialogues_sample_0000_es",
+      "source": "dailydialog_translated",
+      "language": "es",
+      "turns": [
+        {
+          "turn_id": 0,
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás?",
+          "length": 18,
+          "original_text": "Hi, how are you doing?"
+        },
+        {
+          "turn_id": 1,
+          "speaker": "assistant",
+          "text": "Estoy bien, gracias. ¿Y tú?",
+          "length": 27,
+          "original_text": "I'm doing well, thank you. How about you?"
+        },
+        {
+          "turn_id": 2,
+          "speaker": "user",
+          "text": "Yo también estoy bien. ¿Cuáles son tus planes para hoy?",
+          "length": 55,
+          "original_text": "I'm good too. What are your plans for today?"
+        },
+        {
+          "turn_id": 3,
+          "speaker": "assistant",
+          "text": "I'm planning to study some AI concepts. What about you?",
+          "length": 55,
+          "original_text": "I'm planning to study some AI concepts. What about you?"
+        },
+        {
+          "turn_id": 4,
+          "speaker": "user",
+          "text": "That sounds interesting! I might work on my programming skills.",
+          "length": 63,
+          "original_text": "That sounds interesting! I might work on my programming skills."
+        }
+      ]
+    },
+    {
+      "dialog_id": "dailydialog_dialogues_sample_0001_es",
+      "source": "dailydialog_translated",
+      "language": "es",
+      "turns": [
+        {
+          "turn_id": 0,
+          "speaker": "user",
+          "text": "¡Buenos días!",
+          "length": 13,
+          "original_text": "Good morning!"
+        },
+        {
+          "turn_id": 1,
+          "speaker": "assistant",
+          "text": "¡Buenos días! ¿Cómo dormiste?",
+          "length": 29,
+          "original_text": "Good morning! How did you sleep?"
+        },
+        {
+          "turn_id": 2,
+          "speaker": "user",
+          "text": "I slept well, thanks. Ready for a new day?",
+          "length": 42,
+          "original_text": "I slept well, thanks. Ready for a new day?"
+        },
+        {
+          "turn_id": 3,
+          "speaker": "assistant",
+          "text": "Absolutely! I have some exciting projects to work on.",
+          "length": 53,
+          "original_text": "Absolutely! I have some exciting projects to work on."
+        },
+        {
+          "turn_id": 4,
+          "speaker": "user",
+          "text": "That's great! What kind of projects?",
+          "length": 36,
+          "original_text": "That's great! What kind of projects?"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dailydialog_dialogues_sample_0002_es",
+      "source": "dailydialog_translated",
+      "language": "es",
+      "turns": [
+        {
+          "turn_id": 0,
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo?",
+          "length": 26,
+          "original_text": "Can you help me with something?"
+        },
+        {
+          "turn_id": 1,
+          "speaker": "assistant",
+          "text": "¡Por supuesto! ¿Con qué necesitas ayuda?",
+          "length": 40,
+          "original_text": "Of course! What do you need help with?"
+        },
+        {
+          "turn_id": 2,
+          "speaker": "user",
+          "text": "I'm trying to understand machine learning better.",
+          "length": 49,
+          "original_text": "I'm trying to understand machine learning better."
+        },
+        {
+          "turn_id": 3,
+          "speaker": "assistant",
+          "text": "That's a fascinating topic. What specific area interests you?",
+          "length": 61,
+          "original_text": "That's a fascinating topic. What specific area interests you?"
+        },
+        {
+          "turn_id": 4,
+          "speaker": "user",
+          "text": "I'm particularly interested in natural language processing.",
+          "length": 59,
+          "original_text": "I'm particularly interested in natural language processing."
+        }
+      ]
+    }
+  ]
+}

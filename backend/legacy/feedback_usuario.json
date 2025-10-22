@@ -1,0 +1,133 @@
+{
+  "respuestas_positivas": [
+    {
+      "timestamp": "2025-10-13T18:41:05.796634",
+      "pregunta": "hola",
+      "respuesta": "¡Saludos! Soy ARIA, aprendo contigo en cada interacción. Iniciando nueva conversación",
+      "comentario": ""
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.756830",
+      "pregunta": "hola",
+      "respuesta": "¡Hola! 👋 Soy ARIA, tu asistente virtual. ¿En qué puedo ayudarte hoy?",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.757948",
+      "pregunta": "buenos días",
+      "respuesta": "¡Buenos días! ¿Cómo estás hoy?",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.760849",
+      "pregunta": "cómo programar",
+      "respuesta": "Te puedo ayudar con programación. ¿Qué lenguaje te interesa: Python, JavaScript, etc?",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.762086",
+      "pregunta": "explicar python",
+      "respuesta": "Python es un lenguaje de programación fácil de aprender y muy versátil",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.763272",
+      "pregunta": "qué hora es",
+      "respuesta": "Son las 18:30",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.764613",
+      "pregunta": "hora actual",
+      "respuesta": "Son las 18:31",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.765860",
+      "pregunta": "fecha de hoy",
+      "respuesta": "Hoy es 13 de octubre del 2025",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.768530",
+      "pregunta": "cuéntame un chiste",
+      "respuesta": "¿Por qué los programadores prefieren el modo oscuro? Porque la luz atrae a los bugs 😄",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.770213",
+      "pregunta": "otro chiste",
+      "respuesta": "¿Cuál es el colmo de un informático? Que su mujer tenga un chip en el hombro",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.772726",
+      "pregunta": "cómo estás",
+      "respuesta": "¡Estoy funcionando perfectamente! Gracias por preguntar. ¿Y tú cómo estás?",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.775601",
+      "pregunta": "ayuda",
+      "respuesta": "Puedo ayudarte con la hora, fecha, chistes, transcribir audio y mucho más. ¿Qué necesitas?",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-16T09:07:02.294638",
+      "pregunta": "bienvenida",
+      "respuesta": "🧠 ¡Hola! Soy ARIA, tu asistente con RED NEURONAL AVANZADA. Uso TensorFlow y Deep Learning para entender mejor tus consultas. ¡Prueba mis nuevas capacidades de IA!",
+      "comentario": ""
+    },
+    {
+      "timestamp": "2025-10-16T09:12:09.622136",
+      "pregunta": "como te ha ido",
+      "respuesta": "Interesante tema. Contexto: hemos hablado de bienvenida, hola ¿puedes contarme más?",
+      "comentario": ""
+    },
+    {
+      "timestamp": "2025-10-16T09:22:52.994794",
+      "pregunta": "puedes aprender de un diccionario",
+      "respuesta": "Interesante tema. Iniciando nueva conversación ¿puedes contarme más?",
+      "comentario": ""
+    }
+  ],
+  "respuestas_negativas": [
+    {
+      "timestamp": "2025-10-13T18:41:12.903264",
+      "pregunta": "saluda",
+      "respuesta": "Interesante tema. Contexto: hemos hablado de hola ¿puedes contarme más?",
+      "comentario": ""
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.754983",
+      "pregunta": "hola",
+      "respuesta": "Hola, ¿en qué puedo ayudarte?",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.759346",
+      "pregunta": "cómo programar",
+      "respuesta": "¿Podrías ser más específico?",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.767160",
+      "pregunta": "cuéntame un chiste",
+      "respuesta": "No sé chistes",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.771345",
+      "pregunta": "cómo estás",
+      "respuesta": "Bien",
+      "comentario": "Conversación simulada para demo"
+    },
+    {
+      "timestamp": "2025-10-13T18:42:02.773885",
+      "pregunta": "ayuda",
+      "respuesta": "¿En qué necesitas ayuda?",
+      "comentario": "Conversación simulada para demo"
+    }
+  ],
+  "sugerencias": []
+}

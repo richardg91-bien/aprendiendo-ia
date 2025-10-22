@@ -1,0 +1,1058 @@
+{
+  "metadata": {
+    "total_dialogs": 50,
+    "language": "es"
+  },
+  "dialogs": [
+    {
+      "dialog_id": "dialog_000",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 0"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 0"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 0"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 0"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_001",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 1"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 1"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 1"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 1"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_002",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 2"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 2"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 2"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 2"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_003",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 3"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 3"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 3"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 3"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_004",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 4"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 4"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 4"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 4"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_005",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 5"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 5"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 5"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 5"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_006",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 6"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 6"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 6"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 6"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_007",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 7"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 7"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 7"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 7"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_008",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 8"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 8"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 8"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 8"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_009",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 9"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 9"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 9"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 9"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_010",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 10"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 10"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 10"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 10"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_011",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 11"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 11"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 11"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 11"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_012",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 12"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 12"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 12"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 12"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_013",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 13"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 13"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 13"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 13"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_014",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 14"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 14"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 14"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 14"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_015",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 15"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 15"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 15"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 15"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_016",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 16"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 16"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 16"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 16"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_017",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 17"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 17"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 17"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 17"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_018",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 18"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 18"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 18"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 18"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_019",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 19"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 19"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 19"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 19"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_020",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 20"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 20"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 20"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 20"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_021",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 21"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 21"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 21"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 21"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_022",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 22"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 22"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 22"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 22"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_023",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 23"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 23"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 23"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 23"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_024",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 24"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 24"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 24"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 24"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_025",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 25"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 25"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 25"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 25"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_026",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 26"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 26"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 26"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 26"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_027",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 27"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 27"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 27"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 27"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_028",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 28"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 28"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 28"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 28"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_029",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 29"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 29"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 29"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 29"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_030",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 30"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 30"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 30"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 30"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_031",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 31"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 31"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 31"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 31"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_032",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 32"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 32"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 32"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 32"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_033",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 33"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 33"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 33"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 33"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_034",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 34"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 34"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 34"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 34"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_035",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 35"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 35"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 35"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 35"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_036",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 36"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 36"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 36"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 36"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_037",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 37"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 37"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 37"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 37"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_038",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 38"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 38"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 38"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 38"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_039",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 39"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 39"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 39"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 39"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_040",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 40"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 40"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 40"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 40"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_041",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 41"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 41"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 41"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 41"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_042",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 42"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 42"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 42"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 42"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_043",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 43"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 43"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 43"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 43"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_044",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 44"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 44"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 44"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 44"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_045",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 45"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 45"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 45"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 45"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_046",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 46"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 46"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 46"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 46"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_047",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 47"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 47"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 47"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 47"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_048",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 48"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 48"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 48"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 48"
+        }
+      ]
+    },
+    {
+      "dialog_id": "dialog_049",
+      "turns": [
+        {
+          "speaker": "user",
+          "text": "Hola, ¿cómo estás? Pregunta 49"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Hola, estoy bien gracias. Respuesta 49"
+        },
+        {
+          "speaker": "user",
+          "text": "¿Puedes ayudarme con algo? Consulta 49"
+        },
+        {
+          "speaker": "assistant",
+          "text": "Por supuesto, ¿en qué puedo ayudarte? Asistencia 49"
+        }
+      ]
+    }
+  ]
+}
