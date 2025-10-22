@@ -38,12 +38,43 @@ except ImportError:
     print("⚠️ Sistema de voz no disponible - pywin32 no encontrado")
 
 try:
-    from auto_learning import auto_learning
+    from auto_learning_simple import auto_learning
     AUTO_LEARNING_AVAILABLE = True
-    print("🧠 Sistema de aprendizaje autónomo cargado")
+    print("🧠 Sistema de aprendizaje autónomo simplificado cargado")
 except ImportError:
     AUTO_LEARNING_AVAILABLE = False
     print("⚠️ Sistema de aprendizaje autónomo no disponible")
+
+try:
+    from auto_learning_advanced import aria_advanced_learning
+    ADVANCED_LEARNING_AVAILABLE = True
+    print("🚀 Sistema de aprendizaje avanzado con fuentes reales cargado")
+except ImportError:
+    ADVANCED_LEARNING_AVAILABLE = False
+    print("⚠️ Sistema de aprendizaje avanzado no disponible - usando sistema básico")
+
+def _get_learning_summary():
+    """Obtiene un resumen del aprendizaje actual"""
+    try:
+        if ADVANCED_LEARNING_AVAILABLE:
+            status = aria_advanced_learning.get_status()
+            total = status.get('total_knowledge', 0)
+            sources = status.get('top_sources', {})
+            topics = status.get('top_topics', {})
+            
+            summary = f"He aprendido {total} elementos de conocimiento real. "
+            if sources:
+                top_source = list(sources.keys())[0]
+                summary += f"Mi fuente principal es {top_source}. "
+            if topics:
+                top_topic = list(topics.keys())[0]
+                summary += f"He estudiado principalmente {top_topic}."
+            
+            return summary
+        else:
+            return "Mi sistema de aprendizaje está en modo básico."
+    except:
+        return "Estoy procesando mi conocimiento actual."
 
 try:
     from cloud_database import cloud_db
@@ -779,7 +810,8 @@ def chat():
         if not message:
             return jsonify({"success": False, "message": "Mensaje vacío"})
         
-        responses = {
+        # Primero intentar respuestas rápidas básicas para saludos
+        basic_responses = {
             'hola': '¡Hola! Me alegra saludarte. ¿Cómo estás?',
             'como estas': 'Estoy funcionando perfectamente, gracias por preguntar.',
             'que tal': 'Todo muy bien por aquí. ¿Y tú qué tal?',
@@ -789,7 +821,6 @@ def chat():
             'entrenar': 'Puedo entrenar mi red neuronal. Haz clic en "Entrenar Red".',
             'diccionario': 'Tengo un diccionario integrado. Haz clic en "Ver Diccionario".',
             'buscar': 'Puedo realizar búsquedas web. Haz clic en "Probar Búsqueda".',
-            'aprender': 'Estoy aprendiendo constantemente de nuestras conversaciones.',
             'neuronal': 'Mi red neuronal está activa y aprendiendo. ¿Quieres ver las estadísticas?',
             'voz': 'Mi sistema de voz está integrado y funcionando. ¿Quieres que hable?',
             'habla': '¡Por supuesto! Puedo hablar contigo usando mi sistema de síntesis de voz.'
@@ -797,14 +828,80 @@ def chat():
         
         message_lower = message.lower()
         response = None
-        confidence = round(random.uniform(0.8, 0.95), 2)
+        confidence = 0.7
         
-        for key, value in responses.items():
-            if key in message_lower:
+        # Buscar respuestas básicas SOLO para saludos/comandos simples
+        for key, value in basic_responses.items():
+            if message_lower == key or message_lower.startswith(key + ' '):
                 response = value
                 confidence = round(random.uniform(0.85, 0.98), 2)
                 break
         
+        # Si no es saludo básico, usar sistema de conocimiento avanzado
+        if not response and ADVANCED_LEARNING_AVAILABLE:
+            try:
+                # Buscar en la base de conocimiento real
+                knowledge_results = aria_advanced_learning.search_knowledge(message, limit=1)
+                
+                if knowledge_results:
+                    best_result = knowledge_results[0]
+                    response = f"""Basándome en mi conocimiento real sobre {best_result['topic']}, puedo decirte que:
+
+{best_result['content']}
+
+Esta información proviene de {best_result['source_name']} (confianza: {best_result['confidence_score']:.0%}) y fue obtenida el {best_result['timestamp'][:10]}."""
+                    
+                    if best_result['source_url']:
+                        response += f"\n\nPuedes verificar esta información en: {best_result['source_url']}"
+                    
+                    confidence = best_result['confidence_score']
+                else:
+                    # Si no encuentra conocimiento específico, buscar por palabras clave
+                    words = message.lower().split()
+                    for word in words:
+                        if len(word) > 3:  # Palabras significativas
+                            keyword_results = aria_advanced_learning.search_knowledge(word, limit=1)
+                            if keyword_results:
+                                result = keyword_results[0]
+                                response = f"Aunque no tengo información específica sobre tu pregunta, sí he aprendido sobre {result['topic']}:\n\n{result['content'][:300]}...\n\n(Fuente: {result['source_name']}, {result['confidence_score']:.0%} confianza)"
+                                confidence = result['confidence_score'] * 0.8  # Reducir confianza por ser indirecta
+                                break
+                
+                # Para preguntas sobre aprendizaje, mostrar resumen del conocimiento real
+                if any(word in message_lower for word in ['aprendido', 'aprender', 'conocimiento', 'que has aprendido']):
+                    status = aria_advanced_learning.get_status()
+                    total = status.get('total_knowledge', 0)
+                    if total > 0:
+                        top_topics = list(status.get('top_topics', {}).keys())[:5]
+                        top_sources = list(status.get('top_sources', {}).keys())[:3]
+                        
+                        response = f"""He aprendido {total} elementos de conocimiento real de fuentes científicas verificadas.
+
+🧠 **Mis temas principales:** {', '.join(top_topics)}
+
+📚 **Mis fuentes principales:** {', '.join(top_sources)}
+
+🌐 **Capacidades multilingües:** Puedo procesar información en español (RAE, noticias) e inglés (ArXiv, Wikipedia).
+
+¿Te gustaría que profundice en algún tema específico?"""
+                        confidence = 0.95
+                
+                # Mejorar respuestas para búsquedas sin resultados
+                elif not response:
+                    response = f"""No tengo información específica sobre '{message}' en mi base de conocimiento actual. 
+
+🔍 **Mi sistema aprende de:**
+• 📰 Noticias científicas en español
+• 📚 Papers de ArXiv en inglés  
+• 📖 Definiciones de la RAE
+• 🌐 Wikipedia y RSS feeds
+
+¿Podrías preguntarme sobre tecnología, ciencia, inteligencia artificial o computación?"""
+                    confidence = 0.7
+            except Exception as e:
+                print(f"Error accediendo conocimiento avanzado: {e}")
+        
+        # Si aún no hay respuesta, fallback básico
         if not response:
             response = f"Interesante. Me dijiste: '{message}'. Estoy aprendiendo a responder mejor cada día."
             confidence = round(random.uniform(0.6, 0.8), 2)
@@ -821,9 +918,9 @@ def chat():
         if NEURAL_NETWORK_AVAILABLE:
             try:
                 neural_network.save_conversation(message, response, confidence)
-                # Aprender patrones básicos
-                if any(key in message_lower for key in responses.keys()):
-                    for key, value in responses.items():
+                # Aprender patrones básicos para respuestas simples
+                if any(key in message_lower for key in basic_responses.keys()):
+                    for key, value in basic_responses.items():
                         if key in message_lower:
                             neural_network.learn_pattern(key, value)
                             break
@@ -1212,67 +1309,119 @@ def voice_info():
 
 @app.route('/api/auto_learning/start', methods=['POST'])
 def start_auto_learning():
-    """Inicia el sistema de aprendizaje autónomo"""
+    """Inicia el sistema de aprendizaje autónomo (básico o avanzado)"""
     try:
-        if not AUTO_LEARNING_AVAILABLE:
+        # Intentar usar sistema avanzado primero
+        if ADVANCED_LEARNING_AVAILABLE:
+            result = aria_advanced_learning.start_learning()
             return jsonify({
-                "success": False,
-                "message": "Sistema de aprendizaje autónomo no disponible"
+                "success": True,
+                "message": "🚀 Sistema de aprendizaje avanzado iniciado",
+                "system": "advanced",
+                "status": result,
+                "capabilities": {
+                    "real_time_web": True,
+                    "scientific_papers": True,
+                    "news_feeds": True,
+                    "api_access": True
+                }
             })
         
-        auto_learning.start_autonomous_learning()
+        # Fallback al sistema básico
+        elif AUTO_LEARNING_AVAILABLE:
+            auto_learning.start_autonomous_learning()
+            return jsonify({
+                "success": True,
+                "message": "🧠 Sistema de aprendizaje básico iniciado",
+                "system": "basic",
+                "status": auto_learning.get_learning_status(),
+                "capabilities": {
+                    "real_time_web": False,
+                    "template_based": True
+                }
+            })
         
-        return jsonify({
-            "success": True,
-            "message": "🧠 Sistema de aprendizaje autónomo iniciado",
-            "status": auto_learning.get_learning_status()
-        })
+        else:
+            return jsonify({
+                "success": False,
+                "message": "Ningún sistema de aprendizaje disponible"
+            })
         
     except Exception as e:
         return jsonify({
             "success": False,
-            "message": f"Error iniciando aprendizaje autónomo: {str(e)}"
+            "message": f"Error iniciando aprendizaje: {str(e)}"
         })
 
 @app.route('/api/auto_learning/stop', methods=['POST'])
 def stop_auto_learning():
     """Detiene el sistema de aprendizaje autónomo"""
     try:
-        if not AUTO_LEARNING_AVAILABLE:
+        success_count = 0
+        messages = []
+        
+        # Detener sistema avanzado si está disponible
+        if ADVANCED_LEARNING_AVAILABLE:
+            try:
+                aria_advanced_learning.stop_learning()
+                success_count += 1
+                messages.append("🛑 Sistema avanzado detenido")
+            except:
+                pass
+        
+        # Detener sistema básico si está disponible
+        if AUTO_LEARNING_AVAILABLE:
+            try:
+                auto_learning.stop_autonomous_learning()
+                success_count += 1
+                messages.append("🛑 Sistema básico detenido")
+            except:
+                pass
+        
+        if success_count > 0:
+            return jsonify({
+                "success": True,
+                "message": " | ".join(messages)
+            })
+        else:
             return jsonify({
                 "success": False,
-                "message": "Sistema de aprendizaje autónomo no disponible"
+                "message": "No hay sistemas de aprendizaje activos"
             })
-        
-        auto_learning.stop_autonomous_learning()
-        
-        return jsonify({
-            "success": True,
-            "message": "🛑 Sistema de aprendizaje autónomo detenido"
-        })
         
     except Exception as e:
         return jsonify({
             "success": False,
-            "message": f"Error deteniendo aprendizaje autónomo: {str(e)}"
+            "message": f"Error deteniendo aprendizaje: {str(e)}"
         })
 
 @app.route('/api/auto_learning/status', methods=['GET'])
 def auto_learning_status():
-    """Obtiene el estado del sistema de aprendizaje autónomo"""
+    """Obtiene el estado del sistema de aprendizaje (prioriza avanzado)"""
     try:
-        if not AUTO_LEARNING_AVAILABLE:
+        # Priorizar sistema avanzado
+        if ADVANCED_LEARNING_AVAILABLE:
+            status = aria_advanced_learning.get_status()
+            status["system_type"] = "advanced"
             return jsonify({
-                "success": False,
-                "message": "Sistema de aprendizaje autónomo no disponible"
+                "success": True,
+                "status": status
             })
         
-        status = auto_learning.get_learning_status()
+        # Fallback al sistema básico
+        elif AUTO_LEARNING_AVAILABLE:
+            status = auto_learning.get_learning_status()
+            status["system_type"] = "basic"
+            return jsonify({
+                "success": True,
+                "status": status
+            })
         
-        return jsonify({
-            "success": True,
-            "status": status
-        })
+        else:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje no disponible"
+            })
         
     except Exception as e:
         return jsonify({
@@ -1308,6 +1457,54 @@ def trigger_learning_session():
         return jsonify({
             "success": False,
             "message": f"Error ejecutando sesión: {str(e)}"
+        })
+
+@app.route('/api/auto_learning/quick_session', methods=['POST'])
+def quick_learning_session():
+    """Ejecuta una sesión rápida de aprendizaje"""
+    try:
+        if not AUTO_LEARNING_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje autónomo no disponible"
+            })
+        
+        auto_learning.quick_learning_session()
+        
+        return jsonify({
+            "success": True,
+            "message": "✅ Sesión rápida de aprendizaje completada",
+            "status": auto_learning.get_learning_status()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error en sesión rápida: {str(e)}"
+        })
+
+@app.route('/api/auto_learning/deep_session', methods=['POST'])
+def deep_learning_session():
+    """Ejecuta una sesión profunda de aprendizaje"""
+    try:
+        if not AUTO_LEARNING_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje autónomo no disponible"
+            })
+        
+        auto_learning.deep_learning_session()
+        
+        return jsonify({
+            "success": True,
+            "message": "✅ Sesión profunda de aprendizaje completada",
+            "status": auto_learning.get_learning_status()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error en sesión profunda: {str(e)}"
         })
 
 # =============================================================================
@@ -1390,6 +1587,134 @@ def get_recent_emotions():
     except Exception as e:
         print(f"Error obteniendo emociones: {e}")
         return jsonify([])
+
+# ========================================
+# RUTAS DEL SISTEMA DE APRENDIZAJE AVANZADO
+# ========================================
+
+@app.route('/api/advanced_learning/search', methods=['POST'])
+def search_advanced_knowledge():
+    """Busca en la base de conocimiento avanzada"""
+    try:
+        if not ADVANCED_LEARNING_AVAILABLE:
+            return jsonify({
+                "success": False,
+                "message": "Sistema de aprendizaje avanzado no disponible"
+            })
+        
+        data = request.get_json()
+        query = data.get('query', '')
+        limit = data.get('limit', 10)
+        
+        results = aria_advanced_learning.search_knowledge(query, limit)
+        
+        return jsonify({
+            "success": True,
+            "results": results,
+            "total": len(results),
+            "query": query
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error buscando conocimiento: {str(e)}"
+        })
+
+@app.route('/api/advanced_learning/capabilities', methods=['GET'])
+def get_advanced_capabilities():
+    """Obtiene las capacidades del sistema avanzado"""
+    try:
+        capabilities = {
+            "available": ADVANCED_LEARNING_AVAILABLE,
+            "features": {
+                "real_time_web_access": ADVANCED_LEARNING_AVAILABLE,
+                "wikipedia_api": ADVANCED_LEARNING_AVAILABLE,
+                "arxiv_papers": ADVANCED_LEARNING_AVAILABLE,
+                "rss_news_feeds": ADVANCED_LEARNING_AVAILABLE,
+                "keyword_extraction": ADVANCED_LEARNING_AVAILABLE,
+                "relevance_scoring": ADVANCED_LEARNING_AVAILABLE,
+                "source_verification": ADVANCED_LEARNING_AVAILABLE,
+                "learning_statistics": ADVANCED_LEARNING_AVAILABLE
+            },
+            "sources": [
+                "Wikipedia API",
+                "ArXiv Scientific Papers",
+                "Technology News RSS",
+                "IEEE Spectrum",
+                "Nature Journal",
+                "TechCrunch",
+                "Wired Magazine"
+            ] if ADVANCED_LEARNING_AVAILABLE else [],
+            "topics": [
+                "Artificial Intelligence",
+                "Machine Learning", 
+                "Quantum Computing",
+                "Cybersecurity",
+                "Biotechnology",
+                "Space Technology",
+                "Renewable Energy",
+                "Robotics",
+                "Blockchain",
+                "IoT & Smart Cities"
+            ] if ADVANCED_LEARNING_AVAILABLE else []
+        }
+        
+        return jsonify(capabilities)
+        
+    except Exception as e:
+        return jsonify({
+            "available": False,
+            "error": str(e)
+        })
+
+@app.route('/api/learning/compare_systems', methods=['GET'])
+def compare_learning_systems():
+    """Compara sistemas básico vs avanzado"""
+    try:
+        comparison = {
+            "basic_system": {
+                "available": AUTO_LEARNING_AVAILABLE,
+                "features": {
+                    "template_based": True,
+                    "offline_operation": True,
+                    "predefined_topics": True,
+                    "fast_startup": True
+                },
+                "limitations": {
+                    "no_real_time_data": True,
+                    "no_external_sources": True,
+                    "limited_knowledge": True,
+                    "synthetic_content": True
+                }
+            },
+            "advanced_system": {
+                "available": ADVANCED_LEARNING_AVAILABLE,
+                "features": {
+                    "real_time_web_access": True,
+                    "multiple_api_sources": True,
+                    "scientific_papers": True,
+                    "news_integration": True,
+                    "keyword_extraction": True,
+                    "relevance_scoring": True
+                },
+                "advantages": {
+                    "current_information": True,
+                    "verified_sources": True,
+                    "broader_knowledge": True,
+                    "quality_scoring": True
+                }
+            },
+            "recommendation": "advanced" if ADVANCED_LEARNING_AVAILABLE else "basic"
+        }
+        
+        return jsonify(comparison)
+        
+    except Exception as e:
+        return jsonify({
+            "error": str(e),
+            "recommendation": "basic"
+        })
 
 @app.route('/api/cloud/stats', methods=['GET'])
 def get_cloud_stats():

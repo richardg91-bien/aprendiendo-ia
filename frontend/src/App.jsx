@@ -27,7 +27,7 @@ import WebSearchPanel from './components/WebSearchPanel.jsx';
 import NeuralTrainingPanel from './components/NeuralTrainingPanel.jsx';
 import LearningPanel from './components/LearningPanel.jsx';
 import StatusIndicator from './components/StatusIndicator.jsx';
-import AutoLearningPanel from './components/AutoLearningPanel.jsx';
+import AutoLearningPanelFuturistic from './components/AutoLearningPanelFuturistic.jsx';
 import FuturisticAriaInterface from './components/FuturisticAriaInterface.jsx';
 
 function App() {
@@ -216,7 +216,7 @@ function App() {
               <Grid item xs={12}>
                 <Fade in={true} timeout={1500}>
                   <Box>
-                    <AutoLearningPanel />
+                    <AutoLearningPanelFuturistic />
                   </Box>
                 </Fade>
               </Grid>
