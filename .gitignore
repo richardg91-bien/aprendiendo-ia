@@ -87,17 +87,16 @@ test_output/
 *.bak
 *_backup.*
 
-# Archivos duplicados (para evitar que vuelvan a aparecer en raíz)
-/*.bat
-/*.py
-/*.md
-!README.md
-/*.json
-!package.json
-/*.sql
-/*.txt
-/*.ps1
-/*.sh
+# Archivos específicos que NO queremos en raíz
+# (comentado para permitir archivos principales del proyecto)
+# /*.bat
+# /*.py
+# /*.md
+# /*.json
+# /*.sql
+# /*.txt
+# /*.ps1
+# /*.sh
 
 # Mantener solo la estructura organizada
 !/scripts/
