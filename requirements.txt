@@ -1,0 +1,43 @@
+# 🤖 ARIA - Requisitos de dependencias
+# ===================================
+# Instalar con: pip install -r requirements.txt
+
+# Core web framework
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Base de datos y almacenamiento en nube
+supabase>=2.0.0
+
+# Embeddings y procesamiento de texto
+sentence-transformers>=2.2.0
+numpy>=1.24.0
+
+# Variables de entorno y configuración
+python-dotenv>=1.0.0
+
+# Requests para APIs web
+requests>=2.31.0
+
+# Procesamiento de texto y utilidades
+lxml>=4.9.0
+beautifulsoup4>=4.12.0
+
+# Logging y utilidades
+colorlog>=6.7.0
+
+# Sistema emocional y análisis
+textblob>=0.17.0
+
+# Fechas y tiempo
+python-dateutil>=2.8.0
+
+# Utilidades de sistema
+psutil>=5.9.0
+
+# Para base de datos PostgreSQL (solo si es necesario)
+# psycopg2-binary>=2.9.0  # Descomenta si usas PostgreSQL localmente
+
+# Desarrollo y testing (opcional)
+# pytest>=7.4.0
+# pytest-flask>=1.3.0

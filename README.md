@@ -1,13 +1,25 @@
-# 🤖 ARIA - Asistente Virtual de IA 
-### 📁 **Proyecto Reorganizado y Optimizado**
+# 🤖 ARIA - Sistema de IA Personal
 
-Sistema completo de inteligencia artificial que combina transcripción de audio, reconocimiento de voz, síntesis de habla y asistente virtual conversacional.
+![ARIA Status](https://img.shields.io/badge/Status-Funcional-green)
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![Supabase](https://img.shields.io/badge/Database-Supabase-green)
 
-## 🌟 Características Principales
+## 📋 Descripción
 
-- 🎙️ **Transcripción de Audio** - Convierte audio a texto usando Whisper
-- 🤖 **Asistente Virtual** - Conversación natural por voz y texto  
-- 🌐 **Interfaz Web Moderna** - Drag & drop, chat en tiempo real
+ARIA es un sistema de inteligencia artificial personal que combina conversación natural, detección de emociones y sistema de memoria persistente. Utiliza Supabase como backend y está optimizado para respuestas empáticas y naturales.
+
+## 🚀 Inicio Rápido
+
+### Instalación Automática
+```bash
+python setup.py
+```
+
+### Uso Básico
+```bash
+python main.py
+```
+Accede a: http://localhost:5000
 - 🎤 **Reconocimiento de Voz** - Habla directamente con ARIA
 - 🔊 **Síntesis de Voz** - ARIA responde por audio
 - 📱 **Responsive Design** - Funciona en móviles y tablets
