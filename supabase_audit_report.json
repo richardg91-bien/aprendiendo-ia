@@ -1,0 +1,122 @@
+{
+  "timestamp": "2025-10-24T12:12:08.419336",
+  "connection": {
+    "url": "https://cggxjweagmeirqpdzypn.supabase.co",
+    "status": "connected"
+  },
+  "tables": {
+    "aria_conversations": {
+      "exists": true,
+      "count": 3,
+      "sample": {
+        "id": 1,
+        "user_message": "caracas",
+        "aria_response": "💭 **Mi reflexión sobre caracas:**\n\nDespués de procesar y analizar la información disponible, he llegado a las siguientes conclusiones:\n\n🔍 **Lo que he observado:**\nMi análisis revela que caracas presenta múltiples dimensiones que merecen consideración cuidadosa. Cada aspecto contribuye a una comprensión más profunda del tema.\n\n🧩 **Conexiones que identifico:**\nVeo patrones interesantes que conectan caracas con otros conceptos relacionados, formando una red de conocimiento interconectada.\n\n🎯 **Mi perspectiva personal:**\nBasándome en mi procesamiento de esta información, considero que caracas tiene implicaciones significativas que van más allá de su comprensión superficial.\n\n💡 **Conclusión reflexiva:** En mi opinión, caracas representa una oportunidad para explorar temas más profundos y desarrollar un entendimiento más matizado.",
+        "emotion_state": "neutral",
+        "confidence": 0.7,
+        "apis_used": "[]",
+        "knowledge_accessed": [],
+        "session_id": "e0e0f1b9-206b-4814-9f30-e4dee470fd83",
+        "user_id": null,
+        "language": "es",
+        "response_time": null,
+        "created_at": "2025-10-24T14:48:36.03179+00:00"
+      },
+      "error": null
+    },
+    "aria_knowledge": {
+      "exists": true,
+      "count": 116,
+      "sample": {
+        "id": 1,
+        "concept": "inteligencia artificial",
+        "description": "Campo de la informática que se enfoca en crear sistemas que pueden realizar tareas que típicamente requieren inteligencia humana",
+        "category": "tecnologia",
+        "confidence": 0.9,
+        "source": "sistema",
+        "tags": null,
+        "created_at": "2025-10-23T20:59:25.006306+00:00",
+        "updated_at": "2025-10-23T20:59:25.006306+00:00"
+      },
+      "error": null
+    },
+    "aria_api_relations": {
+      "exists": true,
+      "count": 3,
+      "sample": {
+        "id": 1,
+        "api_name": "OpenAI GPT",
+        "api_type": "ai_language",
+        "endpoint": "https://api.openai.com/v1/chat/completions",
+        "method": "POST",
+        "description": "API de OpenAI para generar texto con modelos de lenguaje",
+        "status": "active",
+        "last_used": null,
+        "success_rate": 1,
+        "response_time_avg": 0,
+        "usage_count": 0,
+        "created_at": "2025-10-23T20:59:25.006306+00:00",
+        "metadata": {}
+      },
+      "error": null
+    },
+    "aria_emotions": {
+      "exists": true,
+      "count": 5,
+      "sample": {
+        "id": 1,
+        "session_id": "demo-session",
+        "emotion_type": "neutral",
+        "color_code": "#0080FF",
+        "intensity": 0.5,
+        "context": "Estado inicial",
+        "triggered_by": "system_start",
+        "duration_seconds": 0,
+        "created_at": "2025-10-23T20:59:25.006306+00:00"
+      },
+      "error": null
+    },
+    "aria_knowledge_summary": {
+      "exists": true,
+      "count": 4,
+      "sample": {
+        "id": 1,
+        "category": "general",
+        "summary_text": "Conocimiento general del sistema ARIA",
+        "concept_count": 0,
+        "last_updated": "2025-10-24T15:08:54.212859+00:00",
+        "metadata": {}
+      },
+      "error": null
+    },
+    "aria_embeddings": {
+      "exists": true,
+      "count": 0,
+      "sample": null,
+      "error": null
+    },
+    "aria_knowledge_vectors": {
+      "exists": true,
+      "count": 0,
+      "sample": null,
+      "error": null
+    },
+    "aria_concept_relations": {
+      "exists": true,
+      "count": 0,
+      "sample": null,
+      "error": null
+    }
+  },
+  "functionality_tests": {
+    "conversations": "❌ Error: {'message': \"Could not find the 'aria_emotion' column of 'aria_conversations' in the schema cache\", 'code': 'PGRST204', 'hint': None, 'details': None}",
+    "embeddings": "✅ Embeddings OK"
+  },
+  "integrity_issues": [],
+  "summary": {
+    "tables_working": 8,
+    "total_tables": 8,
+    "total_records": 131,
+    "status": "🟢 EXCELENTE"
+  }
+}
