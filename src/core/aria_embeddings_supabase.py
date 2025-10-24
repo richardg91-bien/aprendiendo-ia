@@ -198,7 +198,8 @@ class ARIAEmbeddingsSupabase:
                            tags: List[str] = None,
                            confianza: float = 0.8,
                            ejemplos: List[str] = None,
-                           relaciones: Dict = None) -> bool:
+                           relaciones: Dict = None,
+                           extra_data: dict = None) -> bool:
         """
         Agregar conocimiento estructurado con embedding
         
@@ -219,7 +220,6 @@ class ARIAEmbeddingsSupabase:
             embedding = self.generar_embedding(descripcion)
             if not embedding:
                 return False
-            
             # Preparar datos
             datos = {
                 'concepto': concepto,
@@ -231,17 +231,16 @@ class ARIAEmbeddingsSupabase:
                 'ejemplos': ejemplos or [],
                 'relaciones': relaciones or {}
             }
-            
-            # Insertar en Supabase
+            if extra_data and isinstance(extra_data, dict):
+                datos.update(extra_data)
+            # Insertar en Supabase sin filtrar
             resultado = self.supabase.table('aria_knowledge_vectors').insert(datos).execute()
-            
             if resultado.data:
                 logger.info(f"✅ Conocimiento agregado: {concepto}")
                 return True
             else:
                 logger.error("❌ Error insertando conocimiento")
                 return False
-                
         except Exception as e:
             logger.error(f"Error agregando conocimiento: {e}")
             return False
@@ -300,19 +299,23 @@ class ARIAEmbeddingsSupabase:
             resultado_embeddings = self.supabase.table('aria_embeddings').select('categoria').execute()
             resultado_knowledge = self.supabase.table('aria_knowledge_vectors').select('categoria').execute()
             
+            # Verificar que los datos sean listas válidas
+            embeddings_data = resultado_embeddings.data if hasattr(resultado_embeddings, 'data') and isinstance(resultado_embeddings.data, list) else []
+            knowledge_data = resultado_knowledge.data if hasattr(resultado_knowledge, 'data') and isinstance(resultado_knowledge.data, list) else []
+            
             categorias_embeddings = {}
-            for item in resultado_embeddings.data:
-                cat = item['categoria']
+            for item in embeddings_data:
+                cat = item.get('categoria', 'general')
                 categorias_embeddings[cat] = categorias_embeddings.get(cat, 0) + 1
             
             categorias_knowledge = {}
-            for item in resultado_knowledge.data:
-                cat = item['categoria']
+            for item in knowledge_data:
+                cat = item.get('categoria', 'general')
                 categorias_knowledge[cat] = categorias_knowledge.get(cat, 0) + 1
             
             return {
-                'total_embeddings': len(resultado_embeddings.data),
-                'total_knowledge': len(resultado_knowledge.data),
+                'total_embeddings': len(embeddings_data),
+                'total_knowledge': len(knowledge_data),
                 'categorias_embeddings': categorias_embeddings,
                 'categorias_knowledge': categorias_knowledge
             }

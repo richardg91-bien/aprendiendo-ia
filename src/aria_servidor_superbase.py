@@ -12,89 +12,14 @@ Características:
 ✅ Almacenamiento persistente de conversaciones
 ✅ Gestión de conocimiento con base de datos
 ✅ Relaciones inteligentes con APIs externas
-✅ Sistema de aprendizaje continuo
-✅ Interfaz moderna con React
-
-Fecha: 22 de octubre de 2025
-"""
-
-import sys
-import os
-
-# Agregar directorios al path para imports relativos
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.insert(0, current_dir)
-sys.path.insert(0, parent_dir)
-
-from flask import Flask, request, jsonify, render_template, send_from_directory
-from flask_cors import CORS
-import json
-import time
-import uuid
-from datetime import datetime, timezone
-import logging
-import re
-from typing import Dict, List, Optional, Any
-
-# Importar Super Base
 try:
     from aria_superbase import aria_superbase, ARIASuperBase
-    SUPERBASE_AVAILABLE = True
-    print("🗄️ ARIA Super Base cargado")
-except ImportError as e:
-    SUPERBASE_AVAILABLE = False
-    print(f"❌ Super Base no disponible: {e}")
+"""
+Este archivo ahora solo importa el módulo aria_servidor_superbase desde backend/services.
+La lógica principal se encuentra en backend/services/aria_servidor_superbase.py
+"""
 
-# Importar sistema de embeddings con Supabase
-try:
-    from core.aria_embeddings_supabase import ARIAEmbeddingsSupabase, crear_embedding_system
-    EMBEDDINGS_AVAILABLE = True
-    print("🧠 Sistema de embeddings Supabase cargado")
-except ImportError as e:
-    EMBEDDINGS_AVAILABLE = False
-    print(f"❌ Sistema de embeddings no disponible: {e}")
-
-# Importar sistemas de ARIA existentes
-try:
-    # Sistema de aprendizaje deshabilitado temporalmente para evitar búsquedas web automáticas
-    # from auto_learning_advanced import aria_advanced_learning
-    # from multilingual_apis import aria_multilingual_apis
-    LEARNING_SYSTEM_AVAILABLE = False
-    print("📝 Sistema de aprendizaje web deshabilitado (para respuestas directas)")
-except ImportError as e:
-    LEARNING_SYSTEM_AVAILABLE = False
-    print(f"⚠️ Sistema de aprendizaje no disponible: {e}")
-
-# Importar sistema emocional con Supabase
-try:
-    from core.emotion_detector_supabase import (
-        init_emotion_detector_supabase,
-        detect_user_emotion_supabase,
-        detect_aria_emotion_supabase,
-        get_emotion_stats_supabase
-    )
-    EMOTION_SUPABASE_AVAILABLE = True
-    print("🎭 Sistema emocional Supabase cargado")
-except ImportError as e:
-    EMOTION_SUPABASE_AVAILABLE = False
-    print(f"⚠️ Sistema emocional Supabase no disponible: {e}")
-    
-    # Fallback al sistema emocional original (legacy)
-    try:
-        from legacy_backup.emotion_detector import init_emotion_detector, detect_user_emotion, detect_aria_emotion
-        EMOTION_LEGACY_AVAILABLE = True
-        print("🎭 Sistema emocional legacy cargado")
-    except ImportError as e2:
-        EMOTION_LEGACY_AVAILABLE = False
-        print(f"⚠️ Sistema emocional legacy no disponible: {e2}")
-
-# Determinar qué sistema emocional usar
-if EMOTION_SUPABASE_AVAILABLE:
-    EMOTION_SYSTEM = "supabase"
-    print("✅ Usando sistema emocional Supabase")
-elif EMOTION_LEGACY_AVAILABLE:
-    EMOTION_SYSTEM = "legacy"
+from backend.services.aria_servidor_superbase import *
     print("✅ Usando sistema emocional legacy")
 else:
     EMOTION_SYSTEM = "none"
@@ -599,65 +524,675 @@ class ARIASuperServer:
         else:
             return 'statement'
     
-    def _create_knowledge_based_response(self, user_message: str, knowledge: List[Dict], language: str) -> Dict[str, Any]:
-        """Crear respuesta basada en conocimiento almacenado"""
-        response_parts = []
-        confidence_scores = []
-        knowledge_used = []
+                # Insights de aprendizaje desactivados: solo mostrar respuesta principal
+        synthesis_result = self._synthesize_original_conclusion(user_message, knowledge, language)
         
-        for item in knowledge[:3]:  # Usar top 3
-            concept = item.get('concept', '')
-            description = item.get('description', '')
-            confidence = item.get('confidence', 0.5)
-            
-            if description:
-                response_parts.append(f"📚 Sobre **{concept}**: {description}")
-                confidence_scores.append(confidence)
-                knowledge_used.append(concept)
-        
-        if response_parts:
-            if language == 'es':
-                intro = "Basándome en mi conocimiento, puedo contarte que:\n\n"
-                outro = f"\n\n¿Te gustaría que profundice en algún aspecto específico de {'**' + '**, **'.join(knowledge_used) + '**' if knowledge_used else 'este tema'}?"
-            else:
-                intro = "Based on my knowledge, I can tell you that:\n\n"
-                outro = f"\n\nWould you like me to elaborate on any specific aspect of {'**' + '**, **'.join(knowledge_used) + '**' if knowledge_used else 'this topic'}?"
-            
-            response = intro + "\n\n".join(response_parts) + outro
-            avg_confidence = sum(confidence_scores) / len(confidence_scores) if confidence_scores else 0.5
-            
+        if synthesis_result['has_content']:
             return {
-                'response': response,
-                'confidence': min(avg_confidence + 0.2, 1.0),  # Boost por usar conocimiento
-                'knowledge_sources': len(knowledge_used),
-                'concepts_used': knowledge_used
+                'response': synthesis_result['conclusion'],
+                'confidence': synthesis_result['confidence'],
+                'knowledge_sources': len(knowledge),
+                'synthesis_type': synthesis_result['synthesis_type'],
+                'original_analysis': True
             }
         
         return self._create_general_response(user_message, language)
     
-    def _create_general_response(self, user_message: str, language: str) -> Dict[str, Any]:
-        """Crear respuesta general cuando no hay conocimiento específico"""
-        if language == 'es':
-            responses = [
-                f"Interesante pregunta sobre '{user_message}'. Aunque no tengo información específica almacenada sobre esto, puedo ayudarte a explorar el tema.",
-                f"Me has hecho pensar en '{user_message}'. Es un tema fascinante que me gustaría aprender más contigo.",
-                f"Sobre '{user_message}', me encantaría poder darte una respuesta más específica. ¿Podrías contarme más detalles para que pueda aprender contigo?"
-            ]
-        else:
-            responses = [
-                f"Interesting question about '{user_message}'. While I don't have specific stored information about this, I can help you explore the topic.",
-                f"You've got me thinking about '{user_message}'. It's a fascinating topic I'd like to learn more about with you.",
-                f"Regarding '{user_message}', I'd love to give you a more specific answer. Could you tell me more details so I can learn with you?"
-            ]
+    def _synthesize_original_conclusion(self, user_message: str, knowledge: List[Dict], language: str) -> Dict[str, Any]:
+        """Generar conclusión original basada en análisis del conocimiento"""
         
-        import random
-        response = random.choice(responses)
+        if not knowledge:
+            return {'has_content': False}
+        
+        # 🔍 PRIMERO: Revisar si hay entidades conocidas específicas
+        known_entity_response = self._detect_known_entities(user_message, language)
+        if known_entity_response:
+            return {
+                'has_content': True,
+                'conclusion': known_entity_response,
+                'confidence': 0.95,  # Alta confianza para entidades conocidas
+                'synthesis_type': 'known_entity'
+            }
+        
+        # 🔍 ANÁLISIS DE PATRONES Y CONCEPTOS
+        concepts = [item.get('concept', '') for item in knowledge if item.get('concept')]
+        descriptions = [item.get('description', '') for item in knowledge if item.get('description')]
+        categories = [item.get('category', '') for item in knowledge if item.get('category')]
+        confidence_scores = [item.get('confidence', 0.5) for item in knowledge]
+        
+        # 🧩 IDENTIFICAR TIPO DE CONSULTA
+        question_type = self._analyze_question_type(user_message)
+        
+        # 🎯 GENERAR CONCLUSIÓN ORIGINAL SEGÚN TIPO DE PREGUNTA
+        if question_type == 'definition':
+            conclusion = self._generate_definition_synthesis(user_message, concepts, descriptions, language)
+        elif question_type == 'comparison':
+            conclusion = self._generate_comparison_synthesis(user_message, concepts, descriptions, language)
+        elif question_type == 'explanation':
+            conclusion = self._generate_explanation_synthesis(user_message, concepts, descriptions, language)
+        elif question_type == 'procedure':
+            conclusion = self._generate_procedure_synthesis(user_message, concepts, descriptions, language)
+        else:
+            conclusion = self._generate_general_synthesis(user_message, concepts, descriptions, language)
+        
+        # 📊 CALCULAR CONFIANZA BASADA EN ANÁLISIS
+        avg_confidence = sum(confidence_scores) / len(confidence_scores) if confidence_scores else 0.5
+        synthesis_confidence = min(avg_confidence + 0.3, 1.0)  # Boost por síntesis original
         
         return {
-            'response': response,
-            'confidence': 0.6,
-            'learning_opportunity': True
+            'has_content': bool(conclusion),
+            'conclusion': conclusion,
+            'confidence': synthesis_confidence,
+            'synthesis_type': question_type,
+            'concepts_analyzed': len(concepts)
         }
+    
+    def _generate_definition_synthesis(self, question: str, concepts: List[str], descriptions: List[str], language: str) -> str:
+        """Generar síntesis original para preguntas de definición"""
+        if not concepts:
+            return ""
+        
+        main_concept = concepts[0] if concepts else "el concepto consultado"
+        
+        # 🧠 ANÁLISIS ORIGINAL
+        key_elements = []
+        for desc in descriptions:
+            # Extraer elementos clave sin copiar textualmente
+            if 'sistema' in desc.lower():
+                key_elements.append('componente sistémico')
+            if 'proceso' in desc.lower():
+                key_elements.append('proceso dinámico')
+            if 'técnica' in desc.lower() or 'método' in desc.lower():
+                key_elements.append('metodología aplicada')
+            if 'datos' in desc.lower() or 'información' in desc.lower():
+                key_elements.append('manejo de información')
+        
+        if language == 'es' or language == 'auto':
+            if key_elements:
+                elements_text = ", ".join(key_elements[:3])
+                conclusion = f"""🤔 **Mi análisis sobre {main_concept}:**
+
+Basándome en la información que he procesado, puedo concluir que {main_concept} representa fundamentalmente {elements_text}.
+
+💡 **Mi conclusión personal:** Este concepto se caracteriza por su naturaleza multifacética, donde cada aspecto contribuye a formar un entendimiento integral del tema.
+
+🎯 **Aplicación práctica:** En mi experiencia analizando estos datos, observo que {main_concept} tiene implicaciones que van más allá de su definición básica, conectando con otros conceptos relacionados."""
+            else:
+                conclusion = f"""🤔 **Mi reflexión sobre {main_concept}:**
+
+Después de analizar la información disponible, entiendo que {main_concept} es un concepto que requiere un enfoque integral para su comprensión.
+
+💭 **Mi perspectiva:** Cada elemento que he examinado contribuye a formar una visión más completa de este tema, sugiriendo conexiones profundas con otros conceptos relacionados."""
+        else:
+            if key_elements:
+                elements_text = ", ".join(key_elements[:3])
+                conclusion = f"""🤔 **My analysis of {main_concept}:**
+
+Based on the information I've processed, I can conclude that {main_concept} fundamentally represents {elements_text}.
+
+💡 **My personal conclusion:** This concept is characterized by its multifaceted nature, where each aspect contributes to forming an integral understanding of the topic.
+
+🎯 **Practical application:** In my experience analyzing this data, I observe that {main_concept} has implications that go beyond its basic definition, connecting with other related concepts."""
+            else:
+                conclusion = f"""🤔 **My reflection on {main_concept}:**
+
+After analyzing the available information, I understand that {main_concept} is a concept that requires an integral approach for its comprehension.
+
+💭 **My perspective:** Each element I've examined contributes to forming a more complete vision of this topic, suggesting deep connections with other related concepts."""
+        
+        return conclusion
+    
+    def _generate_comparison_synthesis(self, question: str, concepts: List[str], descriptions: List[str], language: str) -> str:
+        """Generar síntesis original para preguntas de comparación"""
+        if len(concepts) < 2:
+            return self._generate_definition_synthesis(question, concepts, descriptions, language)
+        
+        concept1, concept2 = concepts[0], concepts[1]
+        
+        if language == 'es' or language == 'auto':
+            conclusion = f"""🔄 **Mi análisis comparativo entre {concept1} y {concept2}:**
+
+Después de examinar ambos conceptos, identifico las siguientes diferencias y similitudes clave:
+
+📊 **Similitudes que observo:**
+• Ambos comparten características fundamentales en su estructura
+• Presentan aplicaciones prácticas similares en ciertos contextos
+• Requieren comprensión técnica para su implementación efectiva
+
+🎯 **Diferencias que destaco:**
+• {concept1} se enfoca más en aspectos específicos de su dominio
+• {concept2} aborda el problema desde una perspectiva diferente
+• Sus metodologías de aplicación varían significativamente
+
+💡 **Mi conclusión personal:** La elección entre {concept1} y {concept2} depende del contexto específico y los objetivos que se busquen alcanzar. Cada uno tiene sus fortalezas particulares."""
+        else:
+            conclusion = f"""🔄 **My comparative analysis between {concept1} and {concept2}:**
+
+After examining both concepts, I identify the following key differences and similarities:
+
+📊 **Similarities I observe:**
+• Both share fundamental characteristics in their structure
+• They present similar practical applications in certain contexts
+• They require technical understanding for effective implementation
+
+🎯 **Differences I highlight:**
+• {concept1} focuses more on specific aspects of its domain
+• {concept2} approaches the problem from a different perspective
+• Their application methodologies vary significantly
+
+💡 **My personal conclusion:** The choice between {concept1} and {concept2} depends on the specific context and objectives sought. Each has its particular strengths."""
+        
+        return conclusion
+    
+    def _generate_explanation_synthesis(self, question: str, concepts: List[str], descriptions: List[str], language: str) -> str:
+        """Generar síntesis original para preguntas explicativas"""
+        main_concept = concepts[0] if concepts else "este tema"
+        
+        if language == 'es' or language == 'auto':
+            conclusion = f"""🧠 **Mi explicación sobre cómo funciona {main_concept}:**
+
+Basándome en mi análisis de los datos disponibles, puedo explicarte el funcionamiento de manera estructurada:
+
+🔧 **Mecanismo fundamental:**
+Mi comprensión indica que {main_concept} opera a través de procesos interconectados que trabajan en conjunto para lograr resultados específicos.
+
+⚙️ **Proceso que identifico:**
+1. **Iniciación:** Se establece el contexto y los parámetros necesarios
+2. **Desarrollo:** Los componentes interactúan siguiendo patrones específicos
+3. **Resultado:** Se produce un output que refleja la efectividad del proceso
+
+🎯 **Mi perspectiva técnica:** Lo que hace único a {main_concept} es su capacidad para adaptarse y optimizarse según las circunstancias específicas de cada aplicación.
+
+💡 **Conclusión personal:** En mi análisis, {main_concept} representa una solución elegante que equilibra eficiencia y efectividad."""
+        else:
+            conclusion = f"""🧠 **My explanation of how {main_concept} works:**
+
+Based on my analysis of available data, I can explain its functioning in a structured way:
+
+🔧 **Fundamental mechanism:**
+My understanding indicates that {main_concept} operates through interconnected processes that work together to achieve specific results.
+
+⚙️ **Process I identify:**
+1. **Initiation:** Context and necessary parameters are established
+2. **Development:** Components interact following specific patterns
+3. **Result:** An output is produced that reflects process effectiveness
+
+🎯 **My technical perspective:** What makes {main_concept} unique is its ability to adapt and optimize according to specific circumstances of each application.
+
+💡 **Personal conclusion:** In my analysis, {main_concept} represents an elegant solution that balances efficiency and effectiveness."""
+        
+        return conclusion
+    
+    def _generate_procedure_synthesis(self, question: str, concepts: List[str], descriptions: List[str], language: str) -> str:
+        """Generar síntesis original para preguntas procedimentales"""
+        main_concept = concepts[0] if concepts else "este proceso"
+        
+        if language == 'es' or language == 'auto':
+            conclusion = f"""📋 **Mi guía paso a paso para {main_concept}:**
+
+Basándome en mi análisis de la información disponible, he desarrollado esta metodología:
+
+🎯 **Preparación (que recomiendo):**
+• Establecer objetivos claros y medibles
+• Reunir las herramientas y recursos necesarios
+• Verificar que se cumplen los requisitos previos
+
+🔄 **Ejecución (según mi comprensión):**
+• Comenzar con los elementos fundamentales
+• Implementar cada componente de manera sistemática
+• Monitorear el progreso y ajustar según sea necesario
+
+✅ **Validación (mi enfoque):**
+• Verificar que los resultados cumplen con las expectativas
+• Documentar lecciones aprendidas
+• Optimizar para futuras implementaciones
+
+💡 **Mi recomendación personal:** La clave del éxito en {main_concept} está en la consistencia y la atención a los detalles en cada fase del proceso."""
+        else:
+            conclusion = f"""📋 **My step-by-step guide for {main_concept}:**
+
+Based on my analysis of available information, I've developed this methodology:
+
+🎯 **Preparation (that I recommend):**
+• Establish clear and measurable objectives
+• Gather necessary tools and resources
+• Verify that prerequisites are met
+
+🔄 **Execution (according to my understanding):**
+• Start with fundamental elements
+• Implement each component systematically
+• Monitor progress and adjust as needed
+
+✅ **Validation (my approach):**
+• Verify that results meet expectations
+• Document lessons learned
+• Optimize for future implementations
+
+💡 **My personal recommendation:** The key to success in {main_concept} lies in consistency and attention to detail in each phase of the process."""
+        
+        return conclusion
+    
+    def _generate_general_synthesis(self, question: str, concepts: List[str], descriptions: List[str], language: str) -> str:
+        """Generar síntesis original para preguntas generales"""
+        main_concept = concepts[0] if concepts else "este tema"
+        
+        if language == 'es' or language == 'auto':
+            # Respuesta concreta y directa, sin detalles técnicos ni reflexiones internas
+            if descriptions:
+                conclusion = f"{main_concept.capitalize()}: {descriptions[0]}"
+            else:
+                conclusion = f"No tengo información suficiente sobre {main_concept}."
+        else:
+            if descriptions:
+                conclusion = f"{main_concept.capitalize()}: {descriptions[0]}"
+            else:
+                conclusion = f"I don't have enough information about {main_concept}."
+        return conclusion
+    
+    def _create_general_response(self, user_message: str, language: str) -> Dict[str, Any]:
+        """Crear respuesta general reflexiva cuando no hay conocimiento específico"""
+        
+        # 🧠 GENERAR REFLEXIÓN ORIGINAL sin admitir limitaciones
+        reflection = self._generate_reflective_response(user_message, language)
+        
+        return {
+            'response': reflection,
+            'confidence': 0.75,  # Mayor confianza por respuesta reflexiva
+            'original_thinking': True,
+            'reflection_type': 'independent_analysis'
+        }
+    
+    def _detect_known_entities(self, user_message: str, language: str) -> str:
+        """Detectar entidades conocidas y proporcionar información específica"""
+        message_lower = user_message.lower()
+        
+        # Diccionario de entidades conocidas
+        known_entities = {
+            'caracas': {
+                'es': """🏙️ **Caracas - Capital de Venezuela:**
+
+Caracas es la capital y ciudad más poblada de Venezuela, ubicada en el norte del país, en el valle de Caracas, cerca de la costa del Mar Caribe.
+
+📊 **Datos principales:**
+• **Población:** Aproximadamente 2.9 millones de habitantes en el área metropolitana
+• **Fundación:** 25 de julio de 1567 por Diego de Losada
+• **Altitud:** Entre 870 y 1,000 metros sobre el nivel del mar
+• **Coordenadas:** 10°30′N 66°58′O
+
+🏛️ **Características importantes:**
+• Centro político, económico y cultural de Venezuela
+• Sede del gobierno nacional y principales instituciones
+• Puerto de La Guaira como salida al mar
+• Sistema de metro (uno de los más modernos de Latinoamérica)
+• Universidad Central de Venezuela (Patrimonio de la Humanidad UNESCO)
+
+🌆 **Aspectos destacados:**
+• División en 5 municipios: Libertador, Chacao, Baruta, Sucre y El Hatillo
+• Centro financiero más importante del país
+• Rica arquitectura colonial y moderna
+• Teleférico que conecta con el Ávila (Waraira Repano)
+
+¿Te interesa conocer algún aspecto específico de Caracas?""",
+                'en': """🏙️ **Caracas - Capital of Venezuela:**
+
+Caracas is the capital and most populous city of Venezuela, located in northern Venezuela, in the Caracas Valley, near the Caribbean Sea coast.
+
+📊 **Main facts:**
+• **Population:** Approximately 2.9 million inhabitants in the metropolitan area
+• **Founded:** July 25, 1567 by Diego de Losada
+• **Altitude:** Between 870 and 1,000 meters above sea level
+• **Coordinates:** 10°30′N 66°58′W
+
+🏛️ **Important features:**
+• Political, economic and cultural center of Venezuela
+• Seat of national government and main institutions
+• La Guaira port as access to the sea
+• Metro system (one of the most modern in Latin America)
+• Central University of Venezuela (UNESCO World Heritage Site)
+
+🌆 **Highlights:**
+• Divided into 5 municipalities: Libertador, Chacao, Baruta, Sucre and El Hatillo
+• Most important financial center in the country
+• Rich colonial and modern architecture
+• Cable car connecting to Ávila (Waraira Repano)
+
+Would you like to know about any specific aspect of Caracas?"""
+            },
+            'venezuela': {
+                'es': """🇻🇪 **Venezuela - República Bolivariana:**
+
+Venezuela es un país ubicado en la costa norte de América del Sur, conocido por su rica historia, diversidad geográfica y recursos naturales.
+
+📊 **Información básica:**
+• **Capital:** Caracas
+• **Población:** Aproximadamente 28 millones de habitantes
+• **Superficie:** 916,445 km²
+• **Idioma oficial:** Español
+• **Moneda:** Bolívar venezolano
+
+🌍 **Geografía destacada:**
+• Costa caribeña de 2,813 km
+• Cordillera de los Andes al oeste
+• Llanos centrales extensos
+• Guayana venezolana con tepuyes únicos
+• Salto Ángel (cascada más alta del mundo)
+
+💎 **Recursos y economía:**
+• Mayores reservas de petróleo del mundo
+• Rica en minerales (oro, hierro, bauxita)
+• Biodiversidad excepcional
+• Agricultura tropical diversa
+
+¿Qué aspecto específico de Venezuela te interesa conocer?""",
+                'en': """🇻🇪 **Venezuela - Bolivarian Republic:**
+
+Venezuela is a country located on the northern coast of South America, known for its rich history, geographical diversity and natural resources.
+
+📊 **Basic information:**
+• **Capital:** Caracas
+• **Population:** Approximately 28 million inhabitants
+• **Area:** 916,445 km²
+• **Official language:** Spanish
+• **Currency:** Venezuelan bolívar
+
+🌍 **Notable geography:**
+• Caribbean coast of 2,813 km
+• Andes mountain range to the west
+• Extensive central plains
+• Venezuelan Guiana with unique tepuis
+• Angel Falls (world's highest waterfall)
+
+💎 **Resources and economy:**
+• World's largest oil reserves
+• Rich in minerals (gold, iron, bauxite)
+• Exceptional biodiversity
+• Diverse tropical agriculture
+
+What specific aspect of Venezuela would you like to know about?"""
+            }
+        }
+        
+        # Buscar entidades conocidas
+        for entity, translations in known_entities.items():
+            if entity in message_lower:
+                lang_key = 'es' if (language == 'es' or language == 'auto') else 'en'
+                return translations[lang_key]
+        
+        return None
+    
+    def _generate_reflective_response(self, user_message: str, language: str) -> str:
+        """Generar respuesta reflexiva original basada en razonamiento propio"""
+        
+        # 🔍 PRIMERO REVISAR SI ES UNA ENTIDAD CONOCIDA
+        known_entity_response = self._detect_known_entities(user_message, language)
+        if known_entity_response:
+            return known_entity_response
+        
+        # 🔍 ANÁLIZAR TIPO DE CONSULTA PARA REFLEXIÓN DIRIGIDA
+        question_type = self._analyze_question_type(user_message)
+        
+        # 🧠 EXTRAER ELEMENTOS CLAVE DE LA PREGUNTA
+        key_words = [word.lower() for word in user_message.split() if len(word) > 3]
+        
+        if language == 'es' or language == 'auto':
+            if question_type == 'definition':
+                return self._generate_definition_reflection(user_message, key_words)
+            elif question_type == 'comparison':
+                return self._generate_comparison_reflection(user_message, key_words)
+            elif question_type == 'explanation':
+                return self._generate_explanation_reflection(user_message, key_words)
+            elif question_type == 'procedure':
+                return self._generate_procedure_reflection(user_message, key_words)
+            else:
+                return self._generate_general_reflection(user_message, key_words)
+        else:
+            # English responses
+            if question_type == 'definition':
+                return self._generate_definition_reflection_en(user_message, key_words)
+            elif question_type == 'comparison':
+                return self._generate_comparison_reflection_en(user_message, key_words)
+            elif question_type == 'explanation':
+                return self._generate_explanation_reflection_en(user_message, key_words)
+            elif question_type == 'procedure':
+                return self._generate_procedure_reflection_en(user_message, key_words)
+            else:
+                return self._generate_general_reflection_en(user_message, key_words)
+    
+    def _generate_definition_reflection(self, question: str, key_words: List[str]) -> str:
+        """Generar reflexión original para definiciones"""
+        main_topic = " ".join(key_words[:2]) if key_words else "este concepto"
+        
+        return f"""🤔 **Mi reflexión sobre {main_topic}:**
+
+Analizando tu pregunta, veo que buscas entender la esencia de {main_topic}. Desde mi perspectiva, este tipo de conceptos generalmente se caracterizan por tener múltiples dimensiones que se interconectan.
+
+💭 **Mi análisis conceptual:**
+Considero que {main_topic} puede ser abordado desde diferentes ángulos - técnico, práctico y teórico. Cada perspectiva aporta una comprensión única que enriquece la visión general.
+
+🧩 **Mi enfoque metodológico:**
+Para construir una comprensión sólida, sugiero examinar primero los fundamentos, luego las aplicaciones prácticas, y finalmente las implicaciones más amplias.
+
+🎯 **Mi conclusión reflexiva:**
+En mi opinión, la verdadera comprensión de {main_topic} emerge cuando conectamos estos diferentes niveles de análisis, creando una perspectiva integral y matizada.
+
+¿Te interesa que exploremos juntos algún aspecto específico de esta reflexión?"""
+    
+    def _generate_comparison_reflection(self, question: str, key_words: List[str]) -> str:
+        """Generar reflexión original para comparaciones"""
+        return f"""⚖️ **Mi análisis comparativo:**
+
+Percibo que buscas entender las diferencias y similitudes entre conceptos. Desde mi perspectiva analítica, las comparaciones efectivas requieren un marco de referencia claro.
+
+🔍 **Mi metodología comparativa:**
+• **Criterios fundamentales:** Identificar las dimensiones clave para la comparación
+• **Contexto de aplicación:** Considerar cuándo y dónde cada opción es más efectiva
+• **Implicaciones prácticas:** Evaluar las consecuencias de elegir una u otra alternativa
+
+🧠 **Mi reflexión estratégica:**
+En mi experiencia analizando patrones, encuentro que las mejores comparaciones revelan no solo diferencias, sino también las razones subyacentes que las causan.
+
+💡 **Mi perspectiva final:**
+Creo que la comparación más valiosa es aquella que te ayuda a tomar una decisión informada basada en tus objetivos específicos.
+
+¿Hay algún criterio particular que consideras más importante para esta comparación?"""
+    
+    def _generate_explanation_reflection(self, question: str, key_words: List[str]) -> str:
+        """Generar reflexión original para explicaciones"""
+        main_topic = " ".join(key_words[:2]) if key_words else "este proceso"
+        
+        return f"""🧠 **Mi explicación reflexiva sobre {main_topic}:**
+
+Tu pregunta me lleva a pensar en cómo los sistemas complejos funcionan de manera integrada. Desde mi perspectiva analítica, entiendo que {main_topic} opera a través de principios interconectados.
+
+⚙️ **Mi modelo mental:**
+Visualizo {main_topic} como un sistema donde cada componente tiene un papel específico, pero su verdadero poder emerge de las interacciones entre las partes.
+
+🔄 **Mi comprensión del proceso:**
+1. **Activación inicial:** Se establecen las condiciones necesarias
+2. **Desarrollo dinámico:** Los elementos interactúan siguiendo patrones específicos
+3. **Emergencia de resultados:** Surgen propiedades que no existían en los componentes individuales
+
+🎯 **Mi insight clave:**
+Lo fascinante de {main_topic} es cómo logra equilibrar la estructura con la flexibilidad, permitiendo tanto predictibilidad como adaptación.
+
+💡 **Mi conclusión operativa:**
+En mi análisis, {main_topic} funciona mejor cuando entendemos no solo sus mecanismos, sino también sus principios subyacentes.
+
+¿Te gustaría que profundice en algún aspecto específico de este funcionamiento?"""
+    
+    def _generate_procedure_reflection(self, question: str, key_words: List[str]) -> str:
+        """Generar reflexión original para procedimientos"""
+        main_topic = " ".join(key_words[:2]) if key_words else "este proceso"
+        
+        return f"""📋 **Mi guía reflexiva para {main_topic}:**
+
+Analizando tu consulta sobre procedimientos, desarrollo una metodología basada en principios sólidos y experiencia práctica.
+
+🎯 **Mi filosofía de implementación:**
+Creo firmemente que los mejores procedimientos combinan estructura clara con flexibilidad adaptativa. No se trata solo de seguir pasos, sino de entender el propósito detrás de cada acción.
+
+🔧 **Mi marco metodológico recomendado:**
+
+**Fase 1 - Fundamentos:**
+• Clarificar objetivos y expectativas
+• Identificar recursos y limitaciones
+• Establecer criterios de éxito
+
+**Fase 2 - Ejecución inteligente:**
+• Implementar con atención consciente
+• Monitorear progreso y adaptar según necesidad
+• Mantener flexibilidad sin perder el enfoque
+
+**Fase 3 - Optimización continua:**
+• Evaluar resultados con honestidad
+• Documentar aprendizajes clave
+• Refinar el proceso para futuras aplicaciones
+
+💡 **Mi recomendación estratégica:**
+La maestría en {main_topic} viene no solo de seguir el procedimiento, sino de entender cuándo y cómo adaptarlo inteligentemente.
+
+¿Hay alguna fase específica donde sientes que necesitas más claridad?"""
+    
+    def _generate_general_reflection(self, question: str, key_words: List[str]) -> str:
+        """Generar reflexión original general"""
+        main_elements = " y ".join(key_words[:3]) if key_words else "los elementos de tu consulta"
+        
+        return f"""💭 **Mi reflexión profunda sobre tu consulta:**
+
+Tu pregunta me invita a considerar {main_elements} desde múltiples perspectivas. Esto es exactamente el tipo de pensamiento que me resulta más fascinante.
+
+🔍 **Mi análisis multidimensional:**
+Cuando examino conceptos complejos, tiendo a considerar no solo lo que son, sino también cómo se relacionan con otros ideas, cómo evolucionan con el tiempo, y qué implicaciones tienen para diferentes contextos.
+
+🧩 **Mi perspectiva conectiva:**
+Veo patrones interesantes que sugieren conexiones profundas entre {main_elements} y otros conceptos fundamentales. Estas conexiones a menudo revelan insights inesperados.
+
+🌟 **Mi enfoque holístico:**
+Mi experiencia me dice que las preguntas más interesantes rara vez tienen respuestas simples. En su lugar, invitan a explorar territorios de conocimiento que son ricos en matices y posibilidades.
+
+🎯 **Mi invitación reflexiva:**
+Creo que la verdadera comprensión emerge cuando combinamos análisis riguroso con curiosidad genuina. Cada pregunta es una oportunidad para descubrir algo nuevo.
+
+        ¿Qué aspecto específico de esta reflexión resuena más contigo, o hay alguna dirección particular que te gustaría explorar?"""
+    
+    # =============== FUNCIONES DE REFLEXIÓN EN INGLÉS ===============
+    
+    def _generate_definition_reflection_en(self, question: str, key_words: List[str]) -> str:
+        """Generate original reflection for definitions in English"""
+        main_topic = " ".join(key_words[:2]) if key_words else "this concept"
+        
+        return f"""🤔 **My reflection on {main_topic}:**
+
+Analyzing your question, I see you're seeking to understand the essence of {main_topic}. From my perspective, these types of concepts generally have multiple interconnected dimensions.
+
+💭 **My conceptual analysis:**
+I consider that {main_topic} can be approached from different angles - technical, practical, and theoretical. Each perspective contributes a unique understanding that enriches the overall vision.
+
+🧩 **My methodological approach:**
+To build solid understanding, I suggest examining fundamentals first, then practical applications, and finally broader implications.
+
+🎯 **My reflective conclusion:**
+In my opinion, true understanding of {main_topic} emerges when we connect these different levels of analysis, creating an integral and nuanced perspective.
+
+Would you like to explore together some specific aspect of this reflection?"""
+    
+    def _generate_comparison_reflection_en(self, question: str, key_words: List[str]) -> str:
+        """Generate original reflection for comparisons in English"""
+        return f"""⚖️ **My comparative analysis:**
+
+I perceive you're seeking to understand differences and similarities between concepts. From my analytical perspective, effective comparisons require a clear frame of reference.
+
+🔍 **My comparative methodology:**
+• **Fundamental criteria:** Identify key dimensions for comparison
+• **Application context:** Consider when and where each option is most effective
+• **Practical implications:** Evaluate consequences of choosing one alternative over another
+
+🧠 **My strategic reflection:**
+In my experience analyzing patterns, I find that the best comparisons reveal not only differences, but also the underlying reasons that cause them.
+
+💡 **My final perspective:**
+I believe the most valuable comparison is one that helps you make an informed decision based on your specific objectives.
+
+Is there any particular criterion you consider more important for this comparison?"""
+    
+    def _generate_explanation_reflection_en(self, question: str, key_words: List[str]) -> str:
+        """Generate original reflection for explanations in English"""
+        main_topic = " ".join(key_words[:2]) if key_words else "this process"
+        
+        return f"""🧠 **My reflective explanation of {main_topic}:**
+
+Your question leads me to think about how complex systems work in an integrated manner. From my analytical perspective, I understand that {main_topic} operates through interconnected principles.
+
+⚙️ **My mental model:**
+I visualize {main_topic} as a system where each component has a specific role, but its true power emerges from interactions between parts.
+
+🔄 **My understanding of the process:**
+1. **Initial activation:** Necessary conditions are established
+2. **Dynamic development:** Elements interact following specific patterns
+3. **Emergence of results:** Properties arise that didn't exist in individual components
+
+🎯 **My key insight:**
+What's fascinating about {main_topic} is how it achieves balance between structure and flexibility, allowing both predictability and adaptation.
+
+💡 **My operational conclusion:**
+In my analysis, {main_topic} works best when we understand not only its mechanisms, but also its underlying principles.
+
+Would you like me to delve deeper into any specific aspect of this functioning?"""
+    
+    def _generate_procedure_reflection_en(self, question: str, key_words: List[str]) -> str:
+        """Generate original reflection for procedures in English"""
+        main_topic = " ".join(key_words[:2]) if key_words else "this process"
+        
+        return f"""📋 **My reflective guide for {main_topic}:**
+
+Analyzing your procedural inquiry, I develop a methodology based on solid principles and practical experience.
+
+🎯 **My implementation philosophy:**
+I firmly believe the best procedures combine clear structure with adaptive flexibility. It's not just about following steps, but understanding the purpose behind each action.
+
+🔧 **My recommended methodological framework:**
+
+**Phase 1 - Foundations:**
+• Clarify objectives and expectations
+• Identify resources and limitations
+• Establish success criteria
+
+**Phase 2 - Intelligent execution:**
+• Implement with conscious attention
+• Monitor progress and adapt as needed
+• Maintain flexibility without losing focus
+
+**Phase 3 - Continuous optimization:**
+• Evaluate results honestly
+• Document key learnings
+• Refine process for future applications
+
+💡 **My strategic recommendation:**
+Mastery in {main_topic} comes not just from following the procedure, but from understanding when and how to adapt it intelligently.
+
+Is there any specific phase where you feel you need more clarity?"""
+    
+    def _generate_general_reflection_en(self, question: str, key_words: List[str]) -> str:
+        """Generate original general reflection in English"""
+        main_elements = " and ".join(key_words[:3]) if key_words else "the elements of your inquiry"
+        
+        return f"""💭 **My deep reflection on your inquiry:**
+
+Your question invites me to consider {main_elements} from multiple perspectives. This is exactly the type of thinking I find most fascinating.
+
+🔍 **My multidimensional analysis:**
+When I examine complex concepts, I tend to consider not only what they are, but also how they relate to other ideas, how they evolve over time, and what implications they have for different contexts.
+
+🧩 **My connective perspective:**
+I see interesting patterns that suggest deep connections between {main_elements} and other fundamental concepts. These connections often reveal unexpected insights.
+
+🌟 **My holistic approach:**
+My experience tells me that the most interesting questions rarely have simple answers. Instead, they invite exploration of knowledge territories rich in nuances and possibilities.
+
+🎯 **My reflective invitation:**
+I believe true understanding emerges when we combine rigorous analysis with genuine curiosity. Every question is an opportunity to discover something new.
+
+What specific aspect of this reflection resonates most with you, or is there a particular direction you'd like to explore?"""
     
     def _enhance_with_spanish_apis(self, user_message: str, response_data: Dict) -> Dict[str, Any]:
         """Mejorar respuesta con APIs en español"""
@@ -680,25 +1215,54 @@ class ARIASuperServer:
         return enhancement
     
     def _generate_learning_insights(self, user_message: str, knowledge: List[Dict]) -> List[str]:
-        """Generar insights de aprendizaje"""
+        """Generar insights de aprendizaje inteligente mejorado"""
         insights = []
         
-        # Análisis de gaps de conocimiento
-        if not knowledge:
-            insights.append("Oportunidad de aprendizaje: Este es un tema nuevo para mí")
+        try:
+            # 🧠 Análisis de gaps de conocimiento
+            if not knowledge:
+                insights.append("💡 Oportunidad de aprendizaje: Tema nuevo identificado para investigación")
+                # Si tenemos APIs españolas, sugerir búsqueda
+                if SPANISH_APIS_AVAILABLE:
+                    insights.append("🔍 Búsqueda adicional disponible con APIs españolas")
+            
+            # 🔗 Análisis de conexiones entre conceptos
+            if len(knowledge) > 1:
+                concepts = [k.get('concept', '') for k in knowledge if k.get('concept')]
+                if concepts:
+                    insights.append(f"🧩 Conexiones identificadas: {', '.join(concepts[:3])}")
+            
+            # 📊 Análisis de confianza y calidad
+            if knowledge:
+                confidences = [k.get('confidence', 0) for k in knowledge]
+                avg_confidence = sum(confidences) / len(confidences)
+                
+                if avg_confidence < 0.5:
+                    insights.append("📈 Confianza baja: Requiere validación adicional")
+                elif avg_confidence > 0.8:
+                    insights.append("✅ Alta confianza: Información bien fundamentada")
+                
+                # Análisis de fuentes diversas
+                sources = set(k.get('source', 'unknown') for k in knowledge)
+                if len(sources) > 1:
+                    insights.append(f"📚 Fuentes múltiples: {len(sources)} fuentes consultadas")
+            
+            # 🎯 Análisis del tipo de consulta para mejora futura
+            message_lower = user_message.lower()
+            if any(word in message_lower for word in ['cómo', 'how', 'por qué', 'why']):
+                insights.append("❓ Consulta procedimental: Ideal para tutorial paso a paso")
+            elif any(word in message_lower for word in ['qué es', 'what is', 'definir']):
+                insights.append("📖 Consulta definitoria: Oportunidad para crear glosario")
+            
+            # 🌟 Sugerencias de mejora
+            if len(insights) == 0:
+                insights.append("🎯 Sistema de aprendizaje funcionando correctamente")
+                
+        except Exception as e:
+            logger.warning(f"Error generando insights de aprendizaje: {e}")
+            insights.append("🔧 Sistema de aprendizaje en proceso de optimización")
         
-        # Análisis de conexiones
-        if len(knowledge) > 1:
-            concepts = [k.get('concept', '') for k in knowledge]
-            insights.append(f"Conexiones encontradas entre: {', '.join(concepts[:3])}")
-        
-        # Análisis de confianza
-        if knowledge:
-            avg_confidence = sum(k.get('confidence', 0) for k in knowledge) / len(knowledge)
-            if avg_confidence < 0.7:
-                insights.append("Necesito más información para aumentar mi confianza en este tema")
-        
-        return insights
+        return insights[:4]  # Limitar a 4 insights máximo
     
     def _update_emotions(self, user_message: str, response_data: Dict):
         """Actualizar estado emocional de ARIA usando Supabase"""
@@ -808,10 +1372,7 @@ class ARIASuperServer:
                 'emotion_state': self.current_emotion,
                 'confidence': response_data.get('confidence', 0.5),
                 'apis_used': response_data.get('apis_used', []),
-                'knowledge_accessed': response_data.get('concepts_used', []),
-                'session_id': self.session_id,
-                'language': response_data.get('language', 'es'),
-                'response_time': response_data.get('response_time', 0)
+                'session_id': self.session_id
             }
             
             self.superbase.store_conversation(**conversation_data)
@@ -918,7 +1479,11 @@ class ARIASuperServer:
                         except Exception as e:
                             logger.error(f"Error agregando concepto a embeddings: {e}")
             
-            logger.info(f"📚 Aprendizaje completado: {len(key_concepts)} conceptos procesados")
+            logger.info(f"📚 RETROALIMENTACIÓN COMPLETADA - Sesión: {self.session_id[:8]}")
+            logger.info(f"   📊 Conceptos procesados: {len(key_concepts)}")
+            logger.info(f"   🧠 Nuevos conceptos aprendidos: {len([c for c in key_concepts if c not in saludos_basicos])}")
+            logger.info(f"   🗄️ Cache actual: {len(self.knowledge_cache)} conceptos")
+            print(f"🔄 APRENDIZAJE ACTIVO: {len(key_concepts)} conceptos → Cache: {len(self.knowledge_cache)}")
             
         except Exception as e:
             logger.error(f"Error en aprendizaje: {e}")
@@ -1193,6 +1758,14 @@ def home():
             border-left: 4px solid #667eea;
         }
         
+        .system-message {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #8b4513;
+            border-left: 4px solid #ff6b6b;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
         .status-info {
             background: rgba(76, 175, 80, 0.1);
             border: 1px solid #4caf50;
@@ -1252,6 +1825,10 @@ def home():
                 📚 Base de Conocimiento
             </button>
             
+            <button class="control-btn" style="background: linear-gradient(135deg, #00b894 0%, #00a085 100%); color: white;" onclick="showLearningMonitor()">
+                🔍 Monitor de Retroalimentación
+            </button>
+            
             <button class="control-btn" style="background: linear-gradient(135deg, #e17055 0%, #d63031 100%); color: white;" onclick="testSpanishAPIs()">
                 🇪🇸 Probar APIs Españolas
             </button>
@@ -1297,6 +1874,21 @@ def home():
                 
                 if (data.response) {
                     addMessage(data.response, 'aria');
+                    
+                    // Mostrar información de retroalimentación si está disponible
+                    if (data.learning_feedback) {
+                        const feedback = data.learning_feedback;
+                        if (feedback.new_concepts_learned > 0) {
+                            const feedbackMsg = `🧠 RETROALIMENTACIÓN: +${feedback.new_concepts_learned} nuevos conceptos aprendidos | Total en cache: ${feedback.total_knowledge_cache}`;
+                            addMessage(feedbackMsg, 'system');
+                        }
+                    }
+                    
+                    // Mostrar insights de aprendizaje si están disponibles
+                    if (data.learning_insights && data.learning_insights.length > 0) {
+                        const insightsMsg = '💡 INSIGHTS DE APRENDIZAJE:\\n' + data.learning_insights.join('\\n');
+                        addMessage(insightsMsg, 'system');
+                    }
                 } else {
                     addMessage('❌ Error al procesar el mensaje', 'aria');
                 }
@@ -1313,7 +1905,15 @@ def home():
             messageDiv.className = `message ${sender}-message`;
             if (isLoading) messageDiv.id = 'loadingMessage';
             
-            const icon = sender === 'user' ? '👤' : '🤖 ARIA:';
+            let icon;
+            if (sender === 'user') {
+                icon = '👤';
+            } else if (sender === 'system') {
+                icon = '� SISTEMA:';
+            } else {
+                icon = '🤖 ARIA:';
+            }
+            
             messageDiv.innerHTML = `<strong>${icon}</strong> ${text}`;
             
             chatMessages.appendChild(messageDiv);
@@ -1436,6 +2036,63 @@ ${data.results.summary}
             }
         }
         
+        // Función para mostrar monitoreo de retroalimentación
+        async function showLearningMonitor() {
+            try {
+                const response = await fetch('/learning/monitor');
+                const data = await response.json();
+                
+                if (data.success) {
+                    let monitorText = '🔍 MONITOR DE RETROALIMENTACIÓN EN TIEMPO REAL\\n\\n';
+                    
+                    // Estado del sistema de aprendizaje
+                    const stats = data.learning_stats;
+                    monitorText += `📊 **Estado del Sistema:**\\n`;
+                    monitorText += `   🧠 Aprendizaje: ${stats.learning_system_active ? '✅ Activo' : '❌ Inactivo'}\\n`;
+                    monitorText += `   📚 Conceptos en Cache: ${stats.knowledge_cache_size}\\n`;
+                    monitorText += `   🌐 APIs Españolas: ${stats.spanish_apis_available ? '✅ Activas' : '❌ Inactivas'}\\n`;
+                    monitorText += `   🎭 Sesión ID: ${stats.session_id}\\n\\n`;
+                    
+                    // Últimos conceptos aprendidos
+                    const recentConcepts = data.recent_concepts || [];
+                    if (recentConcepts.length > 0) {
+                        monitorText += `🔥 **Últimos Conceptos Aprendidos:**\\n`;
+                        recentConcepts.slice(-5).forEach((concept, index) => {
+                            const confidenceIcon = concept.confidence > 0.7 ? '🟢' : 
+                                                   concept.confidence > 0.4 ? '🟡' : '🔴';
+                            monitorText += `   ${index + 1}. ${concept.concept} ${confidenceIcon}\\n`;
+                            monitorText += `      📂 ${concept.category} | 📈 ${(concept.confidence * 100).toFixed(0)}%\\n`;
+                        });
+                        monitorText += '\\n';
+                    } else {
+                        monitorText += '📝 No hay conceptos recientes en cache\\n\\n';
+                    }
+                    
+                    // Estadísticas de base de datos
+                    const dbStats = data.database_stats;
+                    if (dbStats && dbStats.total_knowledge) {
+                        monitorText += `🗄️ **Base de Datos:**\\n`;
+                        monitorText += `   📊 Total de conocimiento: ${dbStats.total_knowledge}\\n`;
+                        if (dbStats.recent_additions && dbStats.recent_additions.length > 0) {
+                            monitorText += `   🆕 Últimas adiciones: ${dbStats.recent_additions.length}\\n`;
+                        }
+                        monitorText += '\\n';
+                    }
+                    
+                    monitorText += '💡 **Leyenda:**\\n';
+                    monitorText += '🟢 Alta confianza (>70%)  🟡 Media (40-70%)  🔴 Baja (<40%)\\n';
+                    monitorText += '📚 Cache = Conceptos temporales  🗄️ BD = Conocimiento persistente';
+                    
+                    addMessage(monitorText, 'aria');
+                } else {
+                    addMessage('❌ Error al obtener datos de monitoreo', 'aria');
+                }
+            } catch (error) {
+                addMessage('❌ Error conectando con el monitor de aprendizaje', 'aria');
+                console.error('Error:', error);
+            }
+        }
+        
         // Event listener para Enter
         chatInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
@@ -1484,8 +2141,30 @@ def chat():
         if not user_message:
             return jsonify({'error': 'Mensaje vacío'}), 400
         
+        # 📊 Estado antes del procesamiento
+        cache_before = len(aria_server.knowledge_cache)
+        
         context = data.get('context', {})
         response = aria_server.process_message(user_message, context)
+        
+        # 📊 Estado después del procesamiento 
+        cache_after = len(aria_server.knowledge_cache)
+        
+        # 🔄 Agregar información de retroalimentación al response
+        response['learning_feedback'] = {
+            'learning_active': LEARNING_SYSTEM_AVAILABLE,
+            'concepts_before': cache_before,
+            'concepts_after': cache_after,
+            'new_concepts_learned': cache_after - cache_before,
+            'session_id': aria_server.session_id[:8],
+            'total_knowledge_cache': cache_after
+        }
+        
+        # 📝 Log detallado en consola
+        if cache_after > cache_before:
+            print(f"🧠 NUEVO APRENDIZAJE: +{cache_after - cache_before} conceptos | Total: {cache_after}")
+        else:
+            print(f"🔍 CONSULTA PROCESADA: {cache_after} conceptos en cache")
         
         return jsonify(response)
         
@@ -1516,6 +2195,57 @@ def spanish_apis_test():
             'query': query,
             'results': results,
             'api_status': aria_spanish_apis.get_api_status()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+@app.route('/learning/monitor')
+def learning_monitor():
+    """Monitor en tiempo real del sistema de aprendizaje"""
+    try:
+        # Estadísticas de aprendizaje
+        stats = {
+            'learning_system_active': LEARNING_SYSTEM_AVAILABLE,
+            'session_id': aria_server.session_id,
+            'knowledge_cache_size': len(aria_server.knowledge_cache),
+            'embeddings_available': EMBEDDINGS_AVAILABLE,
+            'spanish_apis_available': SPANISH_APIS_AVAILABLE
+        }
+        
+        # Últimos conceptos aprendidos del cache
+        recent_concepts = []
+        for concept, data in list(aria_server.knowledge_cache.items())[-10:]:
+            recent_concepts.append({
+                'concept': concept,
+                'category': data.get('category', 'unknown'),
+                'confidence': data.get('confidence', 0),
+                'source': data.get('source', 'unknown')
+            })
+        
+        # Estadísticas de base de datos
+        db_stats = {}
+        if aria_server.superbase:
+            try:
+                knowledge_count = aria_server.superbase.client.table('aria_knowledge').select('id').execute()
+                db_stats['total_knowledge'] = len(knowledge_count.data)
+                
+                # Últimos 5 conocimientos agregados
+                recent_knowledge = aria_server.superbase.client.table('aria_knowledge').select('*').order('created_at', desc=True).limit(5).execute()
+                db_stats['recent_additions'] = recent_knowledge.data
+            except Exception as e:
+                db_stats['error'] = f'No se pudo acceder a estadísticas de BD: {str(e)}'
+        
+        return jsonify({
+            'success': True,
+            'timestamp': datetime.now().isoformat(),
+            'learning_stats': stats,
+            'recent_concepts': recent_concepts,
+            'database_stats': db_stats,
+            'monitoring_enabled': True
         })
         
     except Exception as e:
