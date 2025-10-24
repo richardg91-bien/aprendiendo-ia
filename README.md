@@ -1,3 +1,86 @@
+# aprendiendo-ia
+
+Repositorio transformado de playground a app IA modular y escalable.
+
+## Estructura recomendada (FastAPI)
+
+```
+aprendiendo-ia/
+├── backend/
+│   ├── main.py                 # entrypoint FastAPI
+│   ├── routes/
+│   │   ├── chat.py             # endpoint de texto
+│   │   └── voz.py              # endpoint de voz
+│   ├── services/
+│   │   ├── texto.py            # lógica IA texto
+│   │   └── voz.py              # lógica IA voz
+│   ├── config.py               # variables de entorno
+│   └── __init__.py
+├── frontend/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+├── requirements.txt
+├── .env.example
+├── modelo_neuronal/
+│   ├── train.py
+│   ├── inference.py
+│   └── README.md
+├── tests/
+│   └── test_services_texto.py
+└── README.md
+```
+
+## Cómo correrlo
+
+1. Crear entorno virtual
+
+```bash
+python -m venv venv
+# En Windows:
+venv\Scripts\activate
+# En Linux/Mac:
+source venv/bin/activate
+```
+
+2. Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Configurar tu `.env`
+
+```
+OPENAI_API_KEY=tu_clave_aqui
+```
+
+4. Ejecutar el backend
+
+```bash
+uvicorn backend.main:app --reload
+```
+
+5. Abrir `frontend/index.html` en tu navegador.
+
+---
+
+## Ventajas de la estructura
+- Modularidad: fácil de mantener y escalar.
+- Reutilización: servicios IA pueden usarse en otros proyectos.
+- Escalabilidad: listo para desplegar en la nube.
+- Mantenibilidad: código limpio, con logging y configuración centralizada.
+
+---
+
+## Extensiones recomendadas
+- Añadir endpoints para visión, embeddings, etc.
+- Mejorar frontend con frameworks modernos si lo deseas.
+- Ampliar cobertura de tests en `tests/`.
+
+---
+
+> Estructura y recomendaciones generadas para evolucionar de sandbox a app IA profesional.
 # 🤖 ARIA - Sistema de IA Personal
 
 ![ARIA Status](https://img.shields.io/badge/Status-Funcional-green)
