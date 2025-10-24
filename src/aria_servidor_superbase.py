@@ -101,10 +101,10 @@ else:
     print("❌ Sin sistema emocional disponible")
 
 try:
-    # Sistema de APIs web deshabilitado temporalmente para evitar búsquedas automáticas
-    # from spanish_apis import aria_spanish_apis
-    SPANISH_APIS_AVAILABLE = False
-    print("🌐 APIs de búsqueda web deshabilitadas (para respuestas directas)")
+    # Sistema de APIs españolas activado
+    from spanish_apis import aria_spanish_apis
+    SPANISH_APIS_AVAILABLE = True
+    print("🇪� APIs españolas cargadas y activas")
 except ImportError:
     SPANISH_APIS_AVAILABLE = False
     print("⚠️ APIs en español no disponibles")
@@ -424,10 +424,11 @@ class ARIASuperServer:
                 # Si no hay conocimiento específico, generar respuesta general más amigable
                 response_data = self._create_friendly_general_response(user_message, language)
             
-            # Mejorar respuesta con APIs si están disponibles (DESHABILITADO)
-            # if SPANISH_APIS_AVAILABLE and language == 'es':
-            #     enhanced_response = self._enhance_with_spanish_apis(user_message, response_data)
-            #     response_data.update(enhanced_response)
+            # Mejorar respuesta con APIs españolas si están disponibles
+            if SPANISH_APIS_AVAILABLE and language == 'es':
+                enhanced_response = self._enhance_with_spanish_apis(user_message, response_data)
+                if enhanced_response:
+                    response_data.update(enhanced_response)
             
             # Agregar insights de aprendizaje
             response_data['learning_insights'] = self._generate_learning_insights(user_message, knowledge)
@@ -1024,7 +1025,446 @@ aria_server = ARIASuperServer()
 
 @app.route('/')
 def home():
-    """Página principal"""
+    """Página principal con interfaz web"""
+    return '''
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 ARIA - Asistente IA Personal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            flex: 1;
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            gap: 2rem;
+        }
+        
+        .chat-panel {
+            flex: 2;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+        
+        .controls-panel {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .chat-input-area {
+            padding: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+        
+        .send-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .control-btn {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .desktop-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+        }
+        
+        .status-btn {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+        }
+        
+        .knowledge-btn {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: #2d3436;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+        
+        .user-message {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-left: auto;
+        }
+        
+        .aria-message {
+            background: #f8f9fa;
+            color: #2d3436;
+            border-left: 4px solid #667eea;
+        }
+        
+        .status-info {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4caf50;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .status-info h3 {
+            color: #4caf50;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 ARIA</h1>
+        <p>Asistente de IA Personal con Super Base</p>
+    </div>
+    
+    <div class="container">
+        <div class="chat-panel">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message aria-message">
+                    <strong>🤖 ARIA:</strong> ¡Hola! Soy ARIA, tu asistente de IA personal. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu mensaje aquí..." />
+                <button class="send-btn" onclick="sendMessage()">Enviar</button>
+            </div>
+        </div>
+        
+        <div class="controls-panel">
+            <h3 style="margin-bottom: 1.5rem; color: #2d3436;">🎛️ Panel de Control</h3>
+            
+            <button class="control-btn desktop-btn" onclick="openRemoteDesktop()">
+                🖥️ Escritorio Remoto
+            </button>
+            
+            <button class="control-btn status-btn" onclick="checkStatus()">
+                📊 Estado del Sistema
+            </button>
+            
+            <button class="control-btn knowledge-btn" onclick="viewKnowledge()">
+                📚 Base de Conocimiento
+            </button>
+            
+            <button class="control-btn" style="background: linear-gradient(135deg, #e17055 0%, #d63031 100%); color: white;" onclick="testSpanishAPIs()">
+                🇪🇸 Probar APIs Españolas
+            </button>
+            
+            <div class="status-info">
+                <h3>📡 Estado Actual</h3>
+                <p id="serverStatus">🟢 Servidor activo</p>
+                <p id="connectionStatus">🟢 Conectado a Supabase</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Variables globales
+        let chatMessages = document.getElementById('chatMessages');
+        let chatInput = document.getElementById('chatInput');
+        
+        // Función para enviar mensajes
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+            
+            // Mostrar mensaje del usuario
+            addMessage(message, 'user');
+            chatInput.value = '';
+            
+            // Mostrar indicador de carga
+            addMessage('⏳ Procesando...', 'aria', true);
+            
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                const data = await response.json();
+                
+                // Quitar indicador de carga
+                removeLoadingMessage();
+                
+                if (data.response) {
+                    addMessage(data.response, 'aria');
+                } else {
+                    addMessage('❌ Error al procesar el mensaje', 'aria');
+                }
+            } catch (error) {
+                removeLoadingMessage();
+                addMessage('❌ Error de conexión', 'aria');
+                console.error('Error:', error);
+            }
+        }
+        
+        // Función para agregar mensajes
+        function addMessage(text, sender, isLoading = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            if (isLoading) messageDiv.id = 'loadingMessage';
+            
+            const icon = sender === 'user' ? '👤' : '🤖 ARIA:';
+            messageDiv.innerHTML = `<strong>${icon}</strong> ${text}`;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Función para quitar mensaje de carga
+        function removeLoadingMessage() {
+            const loadingMsg = document.getElementById('loadingMessage');
+            if (loadingMsg) loadingMsg.remove();
+        }
+        
+        // Función para abrir escritorio remoto
+        function openRemoteDesktop() {
+            const hostname = window.location.hostname;
+            const rdpUrl = `ms-rd:full address:s:${hostname}:3389&username:s:&audiomode:i:0&disable wallpaper:i:0`;
+            
+            // Intentar abrir RDP directamente
+            try {
+                window.location.href = rdpUrl;
+            } catch (error) {
+                // Fallback: mostrar instrucciones
+                addMessage(`🖥️ Para conectar por escritorio remoto:
+                
+📍 Dirección: ${hostname}:3389
+🔑 Usuario: [tu usuario]
+🗝️ Contraseña: [tu contraseña]
+
+💡 También puedes usar:
+• Escritorio remoto de Windows (mstsc)
+• TeamViewer
+• AnyDesk`, 'aria');
+            }
+        }
+        
+        // Función para verificar estado
+        async function checkStatus() {
+            try {
+                const response = await fetch('/status');
+                const data = await response.json();
+                
+                let statusText = '📊 Estado del Sistema:\\n\\n';
+                statusText += `🔌 Super Base: ${data.superbase_connected ? '✅ Conectado' : '❌ Desconectado'}\\n`;
+                statusText += `🧠 Sistema de Aprendizaje: ${data.systems?.learning_system ? '✅ Activo' : '❌ Inactivo'}\\n`;
+                statusText += `🌐 APIs Españolas: ${data.systems?.spanish_apis ? '✅ Activas' : '❌ Inactivas'}\\n`;
+                statusText += `💬 Conversaciones: ${data.conversations_count || 0}\\n`;
+                statusText += `⏱️ Tiempo activo: ${Math.round(data.uptime_seconds || 0)} segundos`;
+                
+                addMessage(statusText, 'aria');
+            } catch (error) {
+                addMessage('❌ Error al obtener el estado del sistema', 'aria');
+            }
+        }
+        
+        // Función para ver conocimiento
+        async function viewKnowledge() {
+            try {
+                const response = await fetch('/knowledge?limit=5');
+                const data = await response.json();
+                
+                if (data.success && data.knowledge && data.knowledge.length > 0) {
+                    let knowledgeText = '📚 Base de Conocimiento (últimas 5 entradas):\\n\\n';
+                    data.knowledge.forEach((item, index) => {
+                        // Usar concept o concepto según lo que esté disponible
+                        const concept = item.concept || item.concepto || 'Sin título';
+                        const description = item.description || item.descripcion || 'Sin descripción';
+                        
+                        knowledgeText += `${index + 1}. ${concept}\\n`;
+                        knowledgeText += `   📝 ${description.substring(0, 100)}...\\n\\n`;
+                    });
+                    knowledgeText += `💡 Total de entradas: ${data.total}`;
+                    addMessage(knowledgeText, 'aria');
+                } else if (data.success) {
+                    addMessage('📚 No hay conocimiento almacenado aún', 'aria');
+                } else {
+                    addMessage(`❌ Error: ${data.message || 'No se pudo obtener el conocimiento'}`, 'aria');
+                }
+            } catch (error) {
+                addMessage('❌ Error al obtener el conocimiento', 'aria');
+                console.error('Error en viewKnowledge:', error);
+            }
+        }
+        
+        // Función para probar APIs españolas
+        async function testSpanishAPIs() {
+            const testQuery = prompt('¿Qué quieres buscar con las APIs españolas?', 'Madrid España');
+            if (!testQuery) return;
+            
+            addMessage(`🇪🇸 Probando APIs españolas con: "${testQuery}"...`, 'aria');
+            
+            try {
+                const response = await fetch(`/spanish-apis-test?q=${encodeURIComponent(testQuery)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    let resultText = `🇪🇸 Resultados de APIs Españolas para "${testQuery}":
+                    
+📊 **Estado de APIs:**`;
+                    
+                    for (const [apiName, status] of Object.entries(data.api_status.apis)) {
+                        const icon = status.enabled ? '✅' : '❌';
+                        resultText += `
+${icon} ${apiName}: ${status.description}`;
+                    }
+                    
+                    resultText += `
+
+📄 **Resumen:**
+${data.results.summary}
+
+🔍 **Fuentes consultadas:** ${data.results.sources.length}`;
+                    
+                    addMessage(resultText, 'aria');
+                } else {
+                    addMessage(`❌ Error: ${data.message || 'APIs españolas no disponibles'}`, 'aria');
+                }
+            } catch (error) {
+                addMessage('❌ Error al probar APIs españolas', 'aria');
+                console.error('Error:', error);
+            }
+        }
+        
+        // Event listener para Enter
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Actualizar estado cada 30 segundos
+        setInterval(async () => {
+            try {
+                const response = await fetch('/status');
+                const data = await response.json();
+                
+                document.getElementById('serverStatus').textContent = 
+                    data.superbase_connected ? '🟢 Servidor activo' : '🟡 Servidor limitado';
+                document.getElementById('connectionStatus').textContent = 
+                    data.superbase_connected ? '🟢 Conectado a Supabase' : '🔴 Sin conexión DB';
+            } catch (error) {
+                document.getElementById('serverStatus').textContent = '🔴 Error de conexión';
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
+    '''
+
+@app.route('/api')
+def api_info():
+    """Información de la API en formato JSON"""
     return jsonify({
         'message': '🤖 ARIA Super Server está funcionando',
         'version': '2.0.0',
@@ -1058,6 +1498,32 @@ def status():
     """Estado del sistema"""
     return jsonify(aria_server.get_system_status())
 
+@app.route('/spanish-apis-test')
+def spanish_apis_test():
+    """Probar APIs españolas"""
+    try:
+        if not SPANISH_APIS_AVAILABLE:
+            return jsonify({
+                'success': False,
+                'message': 'APIs españolas no disponibles'
+            })
+        
+        query = request.args.get('q', 'Madrid')
+        results = aria_spanish_apis.search_comprehensive(query, max_results=3)
+        
+        return jsonify({
+            'success': True,
+            'query': query,
+            'results': results,
+            'api_status': aria_spanish_apis.get_api_status()
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
 @app.route('/knowledge')
 def knowledge():
     """Obtener conocimiento almacenado"""
@@ -1066,22 +1532,34 @@ def knowledge():
         concept = request.args.get('concept')
         limit = int(request.args.get('limit', 10))
         
+        logger.info(f"Solicitud de conocimiento: concept={concept}, category={category}, limit={limit}")
+        
         if aria_server.superbase:
             knowledge_data = aria_server.superbase.get_knowledge(concept, category)
+            logger.info(f"Datos obtenidos de Supabase: {len(knowledge_data)} entradas")
+            
+            # Log de muestra de los primeros datos
+            if knowledge_data:
+                logger.info(f"Muestra de datos: {knowledge_data[0].keys() if knowledge_data else 'Sin datos'}")
+            
             return jsonify({
                 'success': True,
                 'knowledge': knowledge_data[:limit],
                 'total': len(knowledge_data)
             })
         else:
+            logger.warning("Super Base no disponible, usando cache local")
+            cache_data = list(aria_server.knowledge_cache.values())[:limit]
             return jsonify({
-                'success': False,
-                'message': 'Super Base no disponible',
-                'knowledge': list(aria_server.knowledge_cache.values())[:limit]
+                'success': True,
+                'message': 'Usando cache local (Super Base no disponible)',
+                'knowledge': cache_data,
+                'total': len(cache_data)
             })
             
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error en /knowledge: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/knowledge', methods=['POST'])
 def add_knowledge():
