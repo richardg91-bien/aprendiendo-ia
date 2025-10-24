@@ -31,9 +31,9 @@ function Stop-ProcessOnPort {
         $processes = Get-NetTCPConnection -LocalPort $Port -ErrorAction SilentlyContinue
         if ($processes) {
             foreach ($process in $processes) {
-                $processId = $process.OwningProcess
-                Write-ColorOutput "🛑 Deteniendo proceso PID: $processId" "Yellow"
-                Stop-Process -Id $processId -Force -ErrorAction SilentlyContinue
+                $procId = $process.OwningProcess
+                Write-ColorOutput "🛑 Deteniendo proceso PID: $procId" "Yellow"
+                Stop-Process -Id $procId -Force -ErrorAction SilentlyContinue
             }
             Start-Sleep -Seconds 2
         }

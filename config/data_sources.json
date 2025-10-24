@@ -1,0 +1,1282 @@
+{
+  "sources": [
+    {
+      "id": "docs_0",
+      "name": "Documentación del Proyecto",
+      "type": "documents",
+      "description": "Documentación completa del proyecto ARIA",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md",
+          "*.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt",
+          ".rst"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:18.921450"
+    },
+    {
+      "id": "docs_1",
+      "name": "Código Fuente",
+      "type": "documents",
+      "description": "Código fuente del proyecto para referencias técnicas",
+      "config": {
+        "file_paths": [
+          "*.py",
+          "backend/src/",
+          "frontend/src/"
+        ],
+        "file_types": [
+          ".py",
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:18.922115"
+    },
+    {
+      "id": "api_2",
+      "name": "Wikipedia Español",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia en español",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary/{query}",
+        "headers": {
+          "User-Agent": "ARIA-RAG/1.0"
+        },
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:18.922673"
+    },
+    {
+      "id": "api_3",
+      "name": "API de Pruebas",
+      "type": "api",
+      "description": "API de pruebas para validar funcionamiento",
+      "config": {
+        "base_url": "https://jsonplaceholder.typicode.com/posts",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "params_template": {
+          "userId": 1
+        },
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:18.923110"
+    },
+    {
+      "id": "web_4",
+      "name": "Documentación Técnica",
+      "type": "web",
+      "description": "Documentación oficial de tecnologías utilizadas",
+      "config": {
+        "urls": [
+          "https://docs.python.org/es/3/",
+          "https://flask.palletsprojects.com/",
+          "https://react.dev/learn"
+        ],
+        "selectors": {
+          "content": "main, .content, article, .documentation",
+          "title": "h1, h2, .title",
+          "exclude": ".sidebar, .nav, .footer, .ads"
+        },
+        "update_frequency": "daily",
+        "respect_robots": true,
+        "user_agent": "ARIA-RAG-Bot/1.0"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:18.923621"
+    },
+    {
+      "id": "db_5",
+      "name": "Base de Conocimiento Local",
+      "type": "database",
+      "description": "Base de conocimiento local con información fundamental",
+      "config": {
+        "connection_string": "sqlite:///config\\knowledge_base.db",
+        "query_template": "SELECT concept, description, category FROM knowledge WHERE concept LIKE '%{query}%' OR description LIKE '%{query}%' LIMIT {limit}",
+        "batch_size": 100
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:18.950140"
+    },
+    {
+      "id": "docs_6",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:31.745252"
+    },
+    {
+      "id": "api_7",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:31.745998"
+    },
+    {
+      "id": "docs_8",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:33.205901"
+    },
+    {
+      "id": "api_9",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:09:33.206647"
+    },
+    {
+      "id": "docs_10",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:11:03.731440"
+    },
+    {
+      "id": "api_11",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:11:03.732501"
+    },
+    {
+      "id": "docs_12",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:11:05.224544"
+    },
+    {
+      "id": "api_13",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:11:05.225270"
+    },
+    {
+      "id": "docs_14",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:15:09.886266"
+    },
+    {
+      "id": "api_15",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:15:09.887348"
+    },
+    {
+      "id": "docs_16",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:15:11.368954"
+    },
+    {
+      "id": "api_17",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:15:11.369820"
+    },
+    {
+      "id": "docs_18",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:19:31.023489"
+    },
+    {
+      "id": "api_19",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:19:31.024495"
+    },
+    {
+      "id": "docs_20",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:19:32.432032"
+    },
+    {
+      "id": "api_21",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:19:32.433037"
+    },
+    {
+      "id": "docs_22",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:59:46.057520"
+    },
+    {
+      "id": "api_23",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:59:46.058366"
+    },
+    {
+      "id": "docs_24",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:59:47.490748"
+    },
+    {
+      "id": "api_25",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-23T19:59:47.492240"
+    },
+    {
+      "id": "docs_26",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:10:42.621329"
+    },
+    {
+      "id": "api_27",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:10:42.622316"
+    },
+    {
+      "id": "docs_28",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:10:45.842988"
+    },
+    {
+      "id": "api_29",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:10:45.844789"
+    },
+    {
+      "id": "docs_30",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:19:48.709050"
+    },
+    {
+      "id": "api_31",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:19:48.710344"
+    },
+    {
+      "id": "docs_32",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:19:50.097593"
+    },
+    {
+      "id": "api_33",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:19:50.099015"
+    },
+    {
+      "id": "docs_34",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:21:05.075472"
+    },
+    {
+      "id": "api_35",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:21:05.077203"
+    },
+    {
+      "id": "docs_36",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:27:18.580229"
+    },
+    {
+      "id": "api_37",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:27:18.581780"
+    },
+    {
+      "id": "docs_38",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:27:20.718259"
+    },
+    {
+      "id": "api_39",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:27:20.719442"
+    },
+    {
+      "id": "docs_40",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:29:25.065497"
+    },
+    {
+      "id": "api_41",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:29:25.067483"
+    },
+    {
+      "id": "docs_42",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:29:36.148819"
+    },
+    {
+      "id": "api_43",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:29:36.150592"
+    },
+    {
+      "id": "docs_44",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:29:58.626089"
+    },
+    {
+      "id": "api_45",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:29:58.627667"
+    },
+    {
+      "id": "docs_46",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:30:16.977550"
+    },
+    {
+      "id": "api_47",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:30:16.978952"
+    },
+    {
+      "id": "docs_48",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:30:33.853034"
+    },
+    {
+      "id": "api_49",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:30:33.854390"
+    },
+    {
+      "id": "docs_50",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:31:04.910684"
+    },
+    {
+      "id": "api_51",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:31:04.912045"
+    },
+    {
+      "id": "docs_52",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:31:35.036104"
+    },
+    {
+      "id": "api_53",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:31:35.037806"
+    },
+    {
+      "id": "docs_54",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:32:40.846777"
+    },
+    {
+      "id": "api_55",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:32:40.848410"
+    },
+    {
+      "id": "docs_56",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:32:42.237871"
+    },
+    {
+      "id": "api_57",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:32:42.239704"
+    },
+    {
+      "id": "docs_58",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:04.991456"
+    },
+    {
+      "id": "api_59",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:04.993126"
+    },
+    {
+      "id": "docs_60",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:17.167308"
+    },
+    {
+      "id": "api_61",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:17.169021"
+    },
+    {
+      "id": "docs_62",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:26.180124"
+    },
+    {
+      "id": "api_63",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:26.181700"
+    },
+    {
+      "id": "docs_64",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:39.339411"
+    },
+    {
+      "id": "api_65",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:39.340772"
+    },
+    {
+      "id": "docs_66",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:56.958848"
+    },
+    {
+      "id": "api_67",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:34:56.960443"
+    },
+    {
+      "id": "docs_68",
+      "name": "Documentación Técnica",
+      "type": "documents",
+      "description": "Documentación del proyecto y guías técnicas",
+      "config": {
+        "file_paths": [
+          "docs/",
+          "README.md"
+        ],
+        "file_types": [
+          ".md",
+          ".txt"
+        ],
+        "chunk_size": 1000,
+        "overlap_size": 200,
+        "encoding": "utf-8"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:35:15.577873"
+    },
+    {
+      "id": "api_69",
+      "name": "Wikipedia API",
+      "type": "api",
+      "description": "Resúmenes de artículos de Wikipedia",
+      "config": {
+        "base_url": "https://es.wikipedia.org/api/rest_v1/page/summary",
+        "headers": {},
+        "params_template": {},
+        "method": "GET",
+        "response_path": "data"
+      },
+      "enabled": true,
+      "created_at": "2025-10-24T09:35:15.579402"
+    }
+  ],
+  "global_settings": {
+    "cache_duration_hours": 24,
+    "max_cache_size_mb": 100,
+    "retry_attempts": 3,
+    "timeout_seconds": 30
+  }
+}
