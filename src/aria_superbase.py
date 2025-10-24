@@ -153,8 +153,8 @@ class ARIASuperBase:
     
     def store_knowledge(self, concept: str, description: str, 
                        category: str = "general", source: str = "conversation",
-                       confidence: float = 0.5) -> bool:
-        """Almacenar nuevo conocimiento"""
+                       confidence: float = 0.5, extra_data: dict = None) -> bool:
+        """Almacenar siempre todo el conocimiento relevante, sin filtrar por confianza ni categoría"""
         knowledge_data = {
             'concept': concept.lower(),
             'description': description,
@@ -163,21 +163,19 @@ class ARIASuperBase:
             'source': source,
             'updated_at': datetime.now(timezone.utc).isoformat()
         }
-        
+        if extra_data and isinstance(extra_data, dict):
+            knowledge_data.update(extra_data)
         if self.connected:
             try:
-                # Intentar insertar o actualizar
+                # Insertar o actualizar siempre, sin filtrar
                 result = self.supabase.table('aria_knowledge').upsert(
                     knowledge_data,
                     on_conflict='concept'
                 ).execute()
-                
                 print(f"✅ Conocimiento almacenado en Supabase: {concept}")
                 return True
-                
             except Exception as e:
                 print(f"❌ Error almacenando en Supabase: {e}")
-        
         # Fallback local
         self.fallback_storage[concept] = knowledge_data
         print(f"📝 Conocimiento almacenado localmente: {concept}")

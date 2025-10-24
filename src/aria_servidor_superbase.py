@@ -599,10 +599,7 @@ class ARIASuperServer:
         else:
             return 'statement'
     
-    def _create_knowledge_based_response(self, user_message: str, knowledge: List[Dict], language: str) -> Dict[str, Any]:
-        """Crear respuesta basada en análisis y síntesis original de conocimiento"""
-        
-        # 🧠 ANÁLISIS Y SÍNTESIS ORIGINAL - No copia directa
+                # Insights de aprendizaje desactivados: solo mostrar respuesta principal
         synthesis_result = self._synthesize_original_conclusion(user_message, knowledge, language)
         
         if synthesis_result['has_content']:
@@ -855,36 +852,16 @@ Based on my analysis of available information, I've developed this methodology:
         main_concept = concepts[0] if concepts else "este tema"
         
         if language == 'es' or language == 'auto':
-            conclusion = f"""💭 **Mi reflexión sobre {main_concept}:**
-
-Después de procesar y analizar la información disponible, he llegado a las siguientes conclusiones:
-
-🔍 **Lo que he observado:**
-Mi análisis revela que {main_concept} presenta múltiples dimensiones que merecen consideración cuidadosa. Cada aspecto contribuye a una comprensión más profunda del tema.
-
-🧩 **Conexiones que identifico:**
-Veo patrones interesantes que conectan {main_concept} con otros conceptos relacionados, formando una red de conocimiento interconectada.
-
-🎯 **Mi perspectiva personal:**
-Basándome en mi procesamiento de esta información, considero que {main_concept} tiene implicaciones significativas que van más allá de su comprensión superficial.
-
-💡 **Conclusión reflexiva:** En mi opinión, {main_concept} representa una oportunidad para explorar temas más profundos y desarrollar un entendimiento más matizado."""
+            # Respuesta concreta y directa, sin detalles técnicos ni reflexiones internas
+            if descriptions:
+                conclusion = f"{main_concept.capitalize()}: {descriptions[0]}"
+            else:
+                conclusion = f"No tengo información suficiente sobre {main_concept}."
         else:
-            conclusion = f"""💭 **My reflection on {main_concept}:**
-
-After processing and analyzing available information, I've reached the following conclusions:
-
-🔍 **What I've observed:**
-My analysis reveals that {main_concept} presents multiple dimensions that deserve careful consideration. Each aspect contributes to a deeper understanding of the topic.
-
-🧩 **Connections I identify:**
-I see interesting patterns that connect {main_concept} with other related concepts, forming an interconnected knowledge network.
-
-🎯 **My personal perspective:**
-Based on my processing of this information, I consider that {main_concept} has significant implications that go beyond its superficial understanding.
-
-💡 **Reflective conclusion:** In my opinion, {main_concept} represents an opportunity to explore deeper topics and develop a more nuanced understanding."""
-        
+            if descriptions:
+                conclusion = f"{main_concept.capitalize()}: {descriptions[0]}"
+            else:
+                conclusion = f"I don't have enough information about {main_concept}."
         return conclusion
     
     def _create_general_response(self, user_message: str, language: str) -> Dict[str, Any]:

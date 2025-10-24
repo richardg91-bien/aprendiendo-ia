@@ -198,7 +198,8 @@ class ARIAEmbeddingsSupabase:
                            tags: List[str] = None,
                            confianza: float = 0.8,
                            ejemplos: List[str] = None,
-                           relaciones: Dict = None) -> bool:
+                           relaciones: Dict = None,
+                           extra_data: dict = None) -> bool:
         """
         Agregar conocimiento estructurado con embedding
         
@@ -219,7 +220,6 @@ class ARIAEmbeddingsSupabase:
             embedding = self.generar_embedding(descripcion)
             if not embedding:
                 return False
-            
             # Preparar datos
             datos = {
                 'concepto': concepto,
@@ -231,17 +231,16 @@ class ARIAEmbeddingsSupabase:
                 'ejemplos': ejemplos or [],
                 'relaciones': relaciones or {}
             }
-            
-            # Insertar en Supabase
+            if extra_data and isinstance(extra_data, dict):
+                datos.update(extra_data)
+            # Insertar en Supabase sin filtrar
             resultado = self.supabase.table('aria_knowledge_vectors').insert(datos).execute()
-            
             if resultado.data:
                 logger.info(f"✅ Conocimiento agregado: {concepto}")
                 return True
             else:
                 logger.error("❌ Error insertando conocimiento")
                 return False
-                
         except Exception as e:
             logger.error(f"Error agregando conocimiento: {e}")
             return False
